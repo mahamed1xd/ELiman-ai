@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@tailwind utilities;
+:root {
+  color-scheme: light !important;
+}
+[data-theme] {
+  color-scheme: light !important;
+}

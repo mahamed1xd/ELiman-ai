@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import RegisterPage from "@/components/register";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -22,6 +24,7 @@ export default function LoginPage() {
   }
 
   return (
+    <>
     <div className="p-10 max-w-md mx-auto">
       <h1 className="text-2xl mb-4">تسجيل الدخول</h1>
       <form onSubmit={handleLogin} className="flex flex-col gap-3">
@@ -45,6 +48,9 @@ export default function LoginPage() {
       <p className="mt-3">{message}</p>
 
     </div>
+      <RegisterPage />
+    </>
+
   );
 
 
