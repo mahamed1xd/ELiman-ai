@@ -7,3 +7,13 @@
 [data-theme] {
   color-scheme: light !important;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* للـ Firefox */
+  -ms-overflow-style: none; /* للـ Edge القديم */
+}

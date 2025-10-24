@@ -1,7 +1,9 @@
 import "./g.css";
 import Footer from "@/components/footer.jsx";
 import NavbarComponent from "@/components/navbar";
-
+import { AuthProvider } from "@/context/authContext";
+import { LoadingProvider } from "@/context/loading";
+import { Toaster, toast } from 'sonner'
 
 export const metadata = {
   title: "Create Next App",
@@ -13,11 +15,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="mylight">
       <body className="min-h-screen flex flex-col">
-        <NavbarComponent />
-        <main className="flex-grow">{children}</main>
-        <footer className="mt-auto">
-          <Footer />
-        </footer>
+        <AuthProvider>
+          <LoadingProvider>
+            <NavbarComponent />
+            <main className="flex-grow pt-[65.9999999px]">{children}</main>
+            <footer className="mt-auto">
+              <Footer />
+            </footer>
+          </LoadingProvider>
+        </AuthProvider>
+        <Toaster position="top-right"
+          richColors />
       </body>
     </html>
   );
