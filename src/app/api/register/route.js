@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import connectToDatabase from "@/lib/mongodb.js";
 import User from "@/models/user";
+import axios from "axios";
 
 const secret = process.env.JWT_SECRET;
 
@@ -19,9 +20,14 @@ export async function POST(req) {
 
         await connectToDatabase();
         const newUser = new User(user);
-        
+
         await newUser.save();
-        return NextResponse.json({ message: "User registered successfully" }, { status: 201 });
+        const loginResponse = await axios.post('http://localhost:3000/api/login', {
+            email: data.email,
+            password: data.password
+        });
+        const dataLogin = loginResponse.data;
+        return NextResponse.json({ dataLogin }, { status: 201 });
 
     
     } catch (error) {

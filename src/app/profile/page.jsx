@@ -1,4 +1,5 @@
 export default function ProfilePage()  {
+  localStorage.setItem("loggedIn", "false");
     return <>
     <div className="mt-10 p-10 justify-center text-center align-middle">
         <h1 className="text-3xl font-bold underline">مرحباً بك في صفحة الملف الشخصي!</h1>

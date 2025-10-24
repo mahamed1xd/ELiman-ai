@@ -1,7 +1,7 @@
 import "./g.css";
 import Footer from "@/components/footer.jsx";
 import NavbarComponent from "@/components/navbar";
-
+import { AuthProvider } from "@/context/authContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,11 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="mylight">
       <body className="min-h-screen flex flex-col">
-        <NavbarComponent />
-        <main className="flex-grow">{children}</main>
-        <footer className="mt-auto">
-          <Footer />
-        </footer>
+        <AuthProvider>
+          <NavbarComponent />
+          <main className="flex-grow">{children}</main>
+          <footer className="mt-auto">
+            <Footer />
+          </footer>
+        </AuthProvider>
       </body>
     </html>
   );

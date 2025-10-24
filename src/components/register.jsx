@@ -1,16 +1,17 @@
 "use client"
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/authContext";
 
 export default function RegisterPage() {
+    const router = useRouter();
+    const { setUser } = useAuth();
     const [role, setRole] = useState("user");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        console.log("Selected role:", role);
-    }, [role]);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -20,7 +21,19 @@ export default function RegisterPage() {
                 password,
                 role
             });
-            alert(response.data.message);
+
+            console.log(response.data.dataLogin);
+
+
+            localStorage.setItem("token", response.data.dataLogin.token);
+            localStorage.setItem("role", response.data.dataLogin.user.role);
+            localStorage.setItem("loggedIn", "true");
+            setUser({ name: response.data.dataLogin.user.name, role: response.data.dataLogin.user.role });
+            router.push("/");
+
+
+
+            alert(response.data.dataLogin.message);
         } catch (error) {
             console.error("Error registering user:", error);
             alert("Registration failed");
