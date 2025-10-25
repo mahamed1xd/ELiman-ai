@@ -1,17 +1,15 @@
 "use client";
 import { toast } from "sonner";
+import '@/css/main.css'
 
 export default function HomePage() {
-  const headerImg = "/header.jpg"
+
   return (
     <>
 
       <div
+        id="header"
         className="p-0 hero min-h-screen"
-        style={{
-          backgroundImage:
-            `url(${headerImg})`,
-        }}
       >
         <div className="hero-overlay"></div>
         <div className="hero-content text-neutral-content text-center">
@@ -25,6 +23,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
     </>
   );
 }

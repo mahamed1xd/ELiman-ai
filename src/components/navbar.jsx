@@ -54,7 +54,7 @@ export default function NavbarComponent() {
 
   return (
     <div >
-      <div className="fixed z-50 navbar bg-base-100 shadow-sm">
+      <div className="fixed border-b-1 border-black z-50 navbar bg-gray-100 shadow-md">
         <div className="navbar-center">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

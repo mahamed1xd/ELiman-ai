@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <LoadingProvider>
             <NavbarComponent />
-            <main className="flex-grow pt-[65.9999999px]">{children}</main>
+            <main className="flex-grow pt-[65px]">{children}</main>
             <footer className="mt-auto">
               <Footer />
             </footer>
