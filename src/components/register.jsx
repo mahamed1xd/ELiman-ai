@@ -4,13 +4,19 @@ import Loader from "@/components/loader"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
+<<<<<<< HEAD
 import { toast } from "sonner";
 import { useLoading } from "@/context/loading";
+=======
+>>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
 
 export default function RegisterPage() {
     const router = useRouter();
     const { setUser } = useAuth();
+<<<<<<< HEAD
     const { loading, setLoading } = useLoading();
+=======
+>>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
     const [role, setRole] = useState("user");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -26,7 +32,11 @@ export default function RegisterPage() {
                 password,
                 role
             });
+<<<<<<< HEAD
             setLoading(false);
+=======
+
+>>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
             console.log(response.data.dataLogin);
 
 
@@ -38,9 +48,13 @@ export default function RegisterPage() {
 
 
 
+<<<<<<< HEAD
             toast.success(response.data.dataLogin.message, {
                 duration: 2500,
             });
+=======
+            alert(response.data.dataLogin.message);
+>>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
         } catch (error) {
             console.error("Error registering user:", error);
             toast.error("Registration failed", {
