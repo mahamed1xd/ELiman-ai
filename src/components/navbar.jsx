@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/authContext";
 
 export default function NavbarComponent() {
-<<<<<<< HEAD
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -21,8 +20,6 @@ export default function NavbarComponent() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-=======
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
   const router = useRouter();
   const { user } = useAuth();
   const [loggedIn, setLoggedIn] = useState(null);
@@ -57,11 +54,7 @@ export default function NavbarComponent() {
 
   return (
     <div >
-<<<<<<< HEAD
       <div className="fixed z-50 navbar bg-base-100 shadow-sm">
-=======
-      <div className="navbar bg-base-100 shadow-sm">
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
         <div className="navbar-center">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -70,11 +63,7 @@ export default function NavbarComponent() {
               </svg>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-<<<<<<< HEAD
               <li><Link href="/ai/chat">AI Chat</Link></li>
-=======
-              <li><a>Item 1</a></li>
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
               <li><a>Item 3</a></li>
             </ul>
           </div>
@@ -83,11 +72,7 @@ export default function NavbarComponent() {
 
         <div className="navbar-start hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-<<<<<<< HEAD
             <li><Link href="/ai/chat">AI Chat</Link></li>
-=======
-            <li><a>Item 1</a></li>
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
             <li><a>Item 3</a></li>
           </ul>
         </div>
@@ -118,13 +103,10 @@ export default function NavbarComponent() {
           )}
         </div>
       </div>
-<<<<<<< HEAD
       <div
         className="h-[3px] bg-primary transition-all duration-75 fixed top-[64px] left-0 z-50"
         style={{ width: `${scrollProgress}%` }}
       ></div>
-=======
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
     </div>
   );
 }

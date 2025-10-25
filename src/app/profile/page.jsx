@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 import jwt from "jsonwebtoken";
 import { useEffect, useState } from "react";
@@ -38,15 +37,6 @@ export default function ProfilePage() {
 
 
 
-=======
-export default function ProfilePage()  {
-  localStorage.setItem("loggedIn", "false");
-    return <>
-    <div className="mt-10 p-10 justify-center text-center align-middle">
-        <h1 className="text-3xl font-bold underline">مرحباً بك في صفحة الملف الشخصي!</h1>
-        <p className="mt-4">هذا هو محتوى صفحة الملف الشخصي لمستخدمنا.</p>
-      </div>
->>>>>>> 4755500f58d06b2fabcdb5246c1e3bdff89a35ef
     </>
   );
 }
