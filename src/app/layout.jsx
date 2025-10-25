@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="mylight">
+    <html lang="en" data-theme="lemonade">
       <body className="min-h-screen flex flex-col">
         <AuthProvider>
           <LoadingProvider>

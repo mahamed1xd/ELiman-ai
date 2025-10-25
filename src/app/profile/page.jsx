@@ -24,7 +24,7 @@ export default function ProfilePage() {
       ) : (
         <>
           <h1 className="text-center mt-10 text-2xl">صفحة الملف الشخصي</h1>
-          <div dir="rtl" className="max-w-md mx-auto mt-6 p-6 bg-gray-100 rounded-lg shadow ">
+            <div dir="rtl" className="max-w-md mx-auto mt-6 p-6 bg-base-100 rounded-lg shadow ">
             <p>اسم المستخدم: {user?.name}</p>
             <br />
             <p>البريد الإلكتروني: {user?.email}</p>

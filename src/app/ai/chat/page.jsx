@@ -64,22 +64,22 @@ export default function FaithfulChat() {
 
       <div
         ref={boxRef}
-        className="bg-gray-50 p-4 rounded-lg h-[480px] overflow-y-auto space-y-3 border"
+        className="bg-base-50 p-4 rounded-lg h-[480px] overflow-y-auto space-y-3 border"
       >
         {messages.length === 0 && (
-          <div className="text-center text-gray-500">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
+          <div className="text-center text-base-500">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
         )}
 
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`p-3 rounded-xl max-w-[90%] ${m.role === "user" ? "bg-blue-600 text-white ml-auto" : "bg-gray-200 text-black mr-auto"}`}
+            className={`p-3 rounded-xl max-w-[90%] ${m.role === "user" ? "bg-neutral text-neutral-content ml-auto" : "bg-base-200 text-base-content mr-auto"}`}
           >
            <p className="text-lg leading-8">{m.content}</p>
           </div>
         ))}
 
-        {loading && <div className="text-center text-gray-500 italic">يفكر الذكاء الإيماني...</div>}
+        {loading && <div className="text-center text-base-500 italic">يفكر الذكاء الإيماني...</div>}
       </div>
 
       <div className="flex gap-2">
@@ -94,7 +94,7 @@ export default function FaithfulChat() {
         <button onClick={send} className="btn btn-primary" disabled={loading}>
           {loading ? <Loader /> : 'إرسال'}
         </button>
-        <button onClick={resetChat} className="btn btn-ghost" disabled={loading}>
+        <button onClick={resetChat} className="btn btn-ghost bg-base-300 text-base-content hover:bg-base-200" disabled={loading}>
           مسح المحادثة
         </button>
       </div>

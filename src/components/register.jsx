@@ -59,7 +59,7 @@ export default function RegisterPage() {
             <option value="user">مستخدم</option>
             <option value="admin">مشرف</option>
         </select>
-                <button type="submit" disabled={loading} className="bg-blue-500 hover:bg-blue-600 text-white p-2">{loading ? <Loader /> : "إنشاء حساب"}</button>
+                <button type="submit" disabled={loading} className="bg-neutral hover:bg-accent hover:text-accent-content duration-700 text-neutral-content p-2">{loading ? <Loader /> : "إنشاء حساب"}</button>
       </form>
     </div>
     )

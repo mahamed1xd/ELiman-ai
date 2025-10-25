@@ -42,7 +42,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="p-10 mt-6 max-w-md mx-auto bg-gray-100 rounded-lg shadow">
+      <div className="p-10 mt-24 max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
         <h1 className="text-2xl mb-4 text-center">تسجيل الدخول</h1>
         <form className="flex flex-col gap-3">
         <input
@@ -62,7 +62,7 @@ export default function LoginPage() {
 
         </form>
         <div className="mt-2 flex justify-evenly">
-          <button onClick={handleLogin} disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white p-2 w-2/5 rounded">{loading ? <Loader /> : 'دخول'}</button>
+          <button onClick={handleLogin} disabled={loading} className="bg-neutral hover:bg-accent duration-700 text-neutral-content hover:text-accent-content p-2 w-2/5 rounded">{loading ? <Loader /> : 'دخول'}</button>
           <button className="btn w-2/5" onClick={() => document.getElementById('my_modal_5').showModal()}>انشاء حساب</button>
         </div>
 

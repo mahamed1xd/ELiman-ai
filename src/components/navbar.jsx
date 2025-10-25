@@ -54,7 +54,7 @@ export default function NavbarComponent() {
 
   return (
     <div >
-      <div className="fixed border-b-1 border-black z-50 navbar bg-gray-100 shadow-md">
+      <div className="fixed border-b-1 border-black z-50 navbar bg-base-100 shadow-md">
         <div className="navbar-center">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -67,37 +67,37 @@ export default function NavbarComponent() {
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <Link href="/" className="btn btn-ghost text-xl">Basera Ai</Link>
+          <Link href="/" className="btn text-base-content hover:text-primary-content hover:bg-primary  duration-300 btn-ghost text-xl">Basera Ai</Link>
         </div>
 
         <div className="navbar-start hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><Link href="/ai/chat">AI Chat</Link></li>
-            <li><a>Item 3</a></li>
+            <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href="/ai/chat">AI Chat</Link></li>
+            <li><a className="hover:bg-primary hover:text-primary-content duration-400 text-base-content">Item 3</a></li>
           </ul>
         </div>
 
         <div className="navbar-end">
           {loggedIn === null ? null : !loggedIn && !user ? (
-            <Link href="/login" className="btn">Login</Link>
+            <Link href="/login" className="btn bg-base-300 text-base-content hover:bg-primary hover:text-primary-content duration-400">Login</Link>
           ) : (
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
+                  <div className="w-12 border-2 border-primary rounded-full">
                     <img
                       alt="User avatar"
                       src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                     />
                   </div>
                 </div>
-                <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                <ul tabIndex={0} className="menu menu-sm dropdown-content border-2 border-primary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                   {role === "admin" && (
                     <li>
-                      <Link href="/admin/dashboard">Dashboard</Link>
+                      <Link href="/admin/dashboard" className="hover:bg-primary hover:text-primary-content duration-400 text-base-content">Dashboard</Link>
                     </li>
                   )}
-                  <li><Link href="/profile">Profile</Link></li>
-                  <li><button onClick={handleLogout}>Logout</button></li>
+                  <li><Link href="/profile" className="hover:bg-primary hover:text-primary-content duration-400 text-base-content">Profile</Link></li>
+                  <li><button onClick={handleLogout} className="hover:bg-primary hover:text-primary-content duration-400 text-base-content">Logout</button></li>
                 </ul>
               </div>
           )}
