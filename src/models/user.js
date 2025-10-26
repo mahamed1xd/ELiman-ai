@@ -5,6 +5,7 @@ let user = {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    image: { type: String, required: false, unique: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     createdAt: { type: Date, default: Date.now }
 }

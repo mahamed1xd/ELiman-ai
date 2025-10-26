@@ -11,7 +11,7 @@ import { useLoading } from "@/context/loading";
 export default function LoginPage() {
   const { loading, setLoading } = useLoading();
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,16 +24,20 @@ export default function LoginPage() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("loggedIn", "true");
-      console.log(res.data.user);
 
-      setUser({ name: res.data.user.name, role: res.data.user.role, email: res.data.user.email });
+      console.log(res.data.user);
+      await setUser({ name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.image });
+      console.log(user);
+      console.log(res.data.user.image);
+      localStorage.setItem("user", { name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.user.image || 'dgdgd' })
+
+
       toast.success(`تم تسجيل الدخول بنجاح (${res.data.user.role}) ✅`, {
         duration: 2500,
       });
       router.push("/")
       
     } catch (err) {
-      setMessage(err.response?.data?.error || "خطأ في تسجيل الدخول");
       toast.error(err.response?.data?.error || "خطأ في تسجيل الدخول", {
         duration: 2500,
       });
@@ -42,7 +46,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="p-10 mt-24 max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
+      <div className="p-10 lg:w-[40%] max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
         <h1 className="text-2xl mb-4 text-center">تسجيل الدخول</h1>
         <form className="flex flex-col gap-3">
         <input

@@ -17,7 +17,7 @@ export async function POST(req) {
     console.log("✅ Connected to DB");
 
     const user = await User.findOne({ email });
-    console.log("👤 User found:", user ? user.email : "none");
+    console.log("👤 User found:", user);
 
     if (!user) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
@@ -36,6 +36,7 @@ export async function POST(req) {
         id: user._id,
         email: user.email,
         role: user.role,
+        image: user.image,
         createdAt: user.createdAt,
       },
       secret,

@@ -16,6 +16,7 @@ export async function POST(req) {
             email: data.email,
             password: await bcrypt.hash(data.password, 10),
             role: data.role || 'user',
+            image: data.image || "null"
         };
 
         await connectToDatabase();
