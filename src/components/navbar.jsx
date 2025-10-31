@@ -35,7 +35,6 @@ export default function NavbarComponent() {
 
   const router = useRouter();
   const { user, logout } = useAuth();
-  console.log(user);
 
 
   const [loggedIn, setLoggedIn] = useState(null);
@@ -81,7 +80,7 @@ export default function NavbarComponent() {
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li><Link href="/ai/chat">AI Chat</Link></li>
-              <li><a>Item 3</a></li>
+              <li><Link href={'/azkar'}>Azkar</Link></li>
             </ul>
           </div>
           <Link href="/" className="btn text-base-content hover:text-primary-content hover:bg-primary  duration-300 btn-ghost text-xl">Basera Ai</Link>
@@ -90,7 +89,7 @@ export default function NavbarComponent() {
         <div className="navbar-start hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href="/ai/chat">AI Chat</Link></li>
-            <li><a className="hover:bg-primary hover:text-primary-content duration-400 text-base-content">Item 3</a></li>
+            <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href='/azkar'>Azkar</Link></li>
           </ul>
         </div>
 
