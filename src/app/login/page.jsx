@@ -25,10 +25,7 @@ export default function LoginPage() {
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("loggedIn", "true");
 
-      console.log(res.data.user);
       await setUser({ name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.image });
-      console.log(user);
-      console.log(res.data.user.image);
       localStorage.setItem("user", { name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.user.image || 'dgdgd' })
 
 

@@ -20,7 +20,6 @@ export default function AdminGuard({ children }) {
         const res = await axios.get("/api/check", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(res);
         
         if (res.data.user.role !== "admin") {
           router.push("/notAllowed"); // صفحة رفض الدخول

@@ -9,9 +9,14 @@ export function AuthProvider({ children }) {
 
   // 🟢 استرجاع بيانات المستخدم من localStorage عند تحميل الصفحة
   useEffect(() => {
+    const userImage = localStorage.getItem("profileImage")
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser)); // نحول النص إلى object
+      setUser({
+        ...JSON.parse(savedUser),
+        image: userImage, // الصورة Base64
+      });
+      
     }
   }, []);
 

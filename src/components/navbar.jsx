@@ -35,7 +35,6 @@ export default function NavbarComponent() {
   const router = useRouter();
   const { user, logout } = useAuth();
 
-
   const [loggedIn, setLoggedIn] = useState(null);
   const [role, setRole] = useState(null);
 

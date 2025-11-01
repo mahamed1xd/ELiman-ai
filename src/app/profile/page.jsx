@@ -12,6 +12,8 @@ export default function ProfilePage() {
     const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt.decode(token);
+      console.log(decoded);
+      
       setUser(decoded);
     }
     setLoading(false);

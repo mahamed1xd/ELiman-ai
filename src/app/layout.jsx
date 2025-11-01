@@ -14,6 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="forest">
+      <head>
+      <link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0d9488" />
+
+      </head>
       <body className="min-h-screen flex flex-col">
         <AuthProvider>
           <LoadingProvider>

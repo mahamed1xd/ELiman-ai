@@ -33,7 +33,6 @@ export default function FaithfulChat() {
       const data = await res.json();
       const reply = data.message || data.error || "لم أتلقَّ ردًا.";
       setMessages((m) => [...m, { role: "assistant", content: reply }]);
-      console.log(messages);
       
     } catch (err) {
       setMessages((m) => [...m, { role: "assistant", content: "فشل الاتصال بالذكاء الإيماني." }]);

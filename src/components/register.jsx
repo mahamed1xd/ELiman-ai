@@ -24,7 +24,6 @@ export default function RegisterPage() {
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64 = reader.result;
-            console.log("✅ Base64:", base64);
             setImage(base64);
 
             // احفظها في localStorage لو عايز تحتفظ بيها مؤقتًا
@@ -40,17 +39,16 @@ export default function RegisterPage() {
         e.preventDefault();
         try {
             setLoading(true);
-            console.log(image);
+            (image);
 
             const response = await axios.post("/api/register", {
                 name,
                 email,
                 password,
                 role,
-                image
+                image,
             });
             setLoading(false);
-            console.log(response.data.dataLogin);
 
             setUser(response.data.dataLogin.user)
             localStorage.setItem("token", response.data.dataLogin.token);

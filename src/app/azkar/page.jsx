@@ -18,7 +18,6 @@ export default function Azkar() {
     async function fetchData() {
       try {
         const res = await axios.get("/data/azkar.json");
-        console.log(res.data);
         setAzkar(res.data);
       } catch (err) {
         console.error("Error loading data:", err);
