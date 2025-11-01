@@ -10,6 +10,21 @@
   color-scheme: light !important;
 }
 
+@font-face {
+  font-family: 'ar1';
+  src: url('/fonts/alfont_com_ArabicPoetry-Medium.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ar2';
+  src: url('/fonts/alfont_com_29LT-Azer-Medium.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

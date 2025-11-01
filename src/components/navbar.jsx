@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -68,6 +67,7 @@ export default function NavbarComponent() {
     router.push("/login");
   }
 
+
   return (
     <div >
       <div id="nav" className="fixed border-neutral z-50 transition-all duration-100 navbar bg-base-100 shadow-md">
@@ -123,18 +123,18 @@ export default function NavbarComponent() {
           ) : (
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar avatar-placeholder">
-
-                  {user.image && <>
+                  {user && user.image ? (
+                    <>
                     <div className="w-12 border-2 border-primary rounded-full">
                     <img
                       alt="User avatar"
                         src={user.image}
-                      /> </div> </>}
-                  {!user.image && <>
-                    <div className="w-12 border-2 border-primary rounded-full"> <span>{user.name.slice(0, 2)}</span></div>
-
-                  </>}
-
+                        /> </div> </>
+                  ) : (
+                    <div className="w-16 h-12 flex items-center justify-center border-2 border-primary rounded-full">
+                      <span>{user?.name ? user.name.slice(0, 2).toUpperCase() : "U"}</span>
+                    </div>
+                  )}
                 </div>
                 <ul tabIndex={0} className="menu menu-sm dropdown-content border-2 border-primary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                   {role === "admin" && (

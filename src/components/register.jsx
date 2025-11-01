@@ -68,6 +68,7 @@ export default function RegisterPage() {
             toast.error("Registration failed", {
                 duration: 2500,
             });
+            setLoading(false)
         }
     };
     return (
@@ -86,10 +87,13 @@ export default function RegisterPage() {
                     <legend className="fieldset-legend">Pick an Image</legend>
                     <input type="file" onChange={handleImage} className="file-input w-full" />
                 </fieldset>
-        <select onChange={(e) => setRole(e.target.value)} name="role">
-            <option value="user">مستخدم</option>
+                <select onChange={(e) => setRole(e.target.value)} name="role" defaultValue="Pick a text editor" className="select w-full">
+                    <option disabled={true}>Pick a role</option>
+                    <option value="user">مستخدم</option>
             <option value="admin">مشرف</option>
         </select>
+
+
                 <button type="submit" disabled={loading} className="bg-neutral hover:bg-accent hover:text-accent-content duration-700 text-neutral-content p-2">{loading ? <Loader /> : "إنشاء حساب"}</button>
       </form>
     </div>

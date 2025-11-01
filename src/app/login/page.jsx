@@ -41,6 +41,7 @@ export default function LoginPage() {
       toast.error(err.response?.data?.error || "خطأ في تسجيل الدخول", {
         duration: 2500,
       });
+      setLoading(false)
     }
   }
 
