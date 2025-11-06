@@ -43,7 +43,7 @@ export default function Azkar() {
         <div
           key={i}
           onClick={() => redirect(category)} // ✅ خليها function
-          className="transition duration-700 w-60 h-36 p-4 border-2 border-primary bg-base-200 text-primary rounded-2xl flex flex-col justify-center items-center cursor-pointer shadow-2xl hover:scale-105 hover:bg-primary hover:text-base-100"
+          className="transition duration-700 w-60 h-36 p-4 border-2 border-neutral bg-base-200 text-secondary rounded-2xl flex flex-col justify-center items-center cursor-pointer shadow-2xl hover:scale-107 hover:bg-neutral hover:text-neutral-content"
         >
           <button className="text-2xl font-semibold mb-2">{category}</button>
           <span className="badge badge-outline mt-2">

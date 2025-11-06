@@ -47,14 +47,14 @@ export default function ZikrPage() {
           id={`zikr-${i}`}
           key={i}
           onClick={() => handleCount(i)}
-          className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-center text-base-content p-4 m-4 border-2 border-primary rounded shadow-2xl w-[85%]"
+          className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-center text-base-content p-4 m-4 border-2 border-neutral rounded shadow-2xl w-[85%]"
         >
           <p
           onClick={() => handleCount(i)} 
           className="text-2xl">{zeekr.content}</p>
           <br />
           <span
-            className="cursor-pointer badge badge-outline badge-primary"
+            className="cursor-pointer badge badge-outline badge-secondary"
             onClick={() => handleCount(i)}
           >
             {counts[i] ?? zeekr.count}
