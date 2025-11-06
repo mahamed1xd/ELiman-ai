@@ -58,12 +58,12 @@ export default function FaithfulChat() {
   };
 
   return (
-    <div className="max-w-3xl w-full mx-auto p-6 space-y-4">
+    <div className="w-full mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold text-center">الذكاء الإيماني — دردشة</h1>
 
       <div
         ref={boxRef}
-        className="bg-base-50 p-4 m-auto rounded-lg w-full md:w-[80%] h-[480px] overflow-y-auto space-y-3 border"
+        className="bg-base-50 p-4 m-auto rounded-lg w-full h-[480px] overflow-y-auto space-y-3 border"
       >
         {messages.length === 0 && (
           <div className="text-center text-base-400">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
