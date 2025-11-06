@@ -39,6 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-public/fonts/alfont_com_ArabicPoetry-Medium.otf
-public/fonts/alfont_com_29LT-Azer-Medium.otf
 next.config.mjs
