@@ -5,9 +5,21 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      direction: {
+        'rtl': 'rtl',
+        'ltr': 'ltr'
+      }
+    },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),
+  function ({ addUtilities }) {
+    addUtilities({
+      '.direction-rtl': { direction: rtl },
+      '.direction-ltr': { direction: ltr },
+    })
+  }
+  ],
   daisyui: {
 
   },

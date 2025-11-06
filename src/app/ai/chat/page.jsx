@@ -72,9 +72,9 @@ export default function FaithfulChat() {
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`p-3 rounded-xl max-w-[90%] ${m.role === "user" ? "bg-neutral text-neutral-content ml-auto" : "bg-base-200 text-base-content mr-auto"}`}
+            className={`p-3 rounded-xl max-w-[90%] ${m.role === "user" ? "bg-neutral text-neutral-content ml-auto direction-rtl" : "direction-rtl bg-base-200 text-base-content mr-auto"}`}
           >
-           <p className="text-lg leading-8">{m.content}</p>
+            <p className="text-lg leading-8 direction-rtl text-right">{m.content}</p>
           </div>
         ))}
 
