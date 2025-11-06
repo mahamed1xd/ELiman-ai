@@ -34,3 +34,10 @@ html, body {
   scrollbar-width: none; /* للـ Firefox */
   -ms-overflow-style: none; /* للـ Edge القديم */
 }
+
+
+#boxRef {
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
