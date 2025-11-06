@@ -58,15 +58,15 @@ export default function FaithfulChat() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-4">
+    <div className="max-w-3xl w-full mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold text-center">الذكاء الإيماني — دردشة</h1>
 
       <div
         ref={boxRef}
-        className="bg-base-50 p-4 rounded-lg h-[480px] overflow-y-auto space-y-3 border"
+        className="bg-base-50 p-4 m-auto rounded-lg w-full md:w-[80%] h-[480px] overflow-y-auto space-y-3 border"
       >
         {messages.length === 0 && (
-          <div className="text-center text-base-500">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
+          <div className="text-center text-base-400">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
         )}
 
         {messages.map((m, i) => (
@@ -81,10 +81,10 @@ export default function FaithfulChat() {
         {loading && <div className="text-center text-base-500 italic">يفكر الذكاء الإيماني...</div>}
       </div>
 
-      <div className="flex gap-2">
+      <div className="justify-center flex gap-2 mt-1.5 flex-col md:flex-row">
         <input
           type="text"
-          className="input input-bordered flex-1"
+          className="input input-bordered flex-1 h-10"
           placeholder="اكتب سؤالك أو ذكر مشكلتك..."
           value={input}
           onChange={(e) => setInput(e.target.value)}

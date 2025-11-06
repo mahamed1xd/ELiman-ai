@@ -3,7 +3,8 @@ import Footer from "@/components/footer.jsx";
 import NavbarComponent from "@/components/navbar";
 import { AuthProvider } from "@/context/authContext";
 import { LoadingProvider } from "@/context/loading";
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: "Create Next App",
@@ -15,11 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="forest">
       <head>
-      <link rel="manifest" href="/manifest.json" />
 <meta name="theme-color" content="#0d9488" />
 
       </head>
       <body className="min-h-screen flex flex-col">
+        <SpeedInsights />
         <AuthProvider>
           <LoadingProvider>
             <NavbarComponent />
