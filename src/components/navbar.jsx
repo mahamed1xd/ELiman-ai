@@ -80,6 +80,7 @@ export default function NavbarComponent() {
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li><Link href="/ai/chat">AI Chat</Link></li>
               <li><Link href={'/azkar'}>Azkar</Link></li>
+              <li><Link href={'/quran'}>Quran</Link></li>
             </ul>
           </div>
           <Link href="/" className="btn text-base-content hover:text-primary-content hover:bg-primary  duration-300 btn-ghost text-xl">Basera Ai</Link>
@@ -89,6 +90,7 @@ export default function NavbarComponent() {
           <ul className="menu menu-horizontal px-1">
             <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href="/ai/chat">AI Chat</Link></li>
             <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href='/azkar'>Azkar</Link></li>
+            <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content" href='/quran'>Quran</Link></li>
           </ul>
         </div>
 
