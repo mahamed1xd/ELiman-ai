@@ -51,7 +51,8 @@ export async function POST(request) {
 4. عند الخلاف الفقهي، اذكر القول الراجح بالدليل.  
 5. اختصر، ولا تذكر إلا المفيد الموثوق.  
 6. تجنب السياسة والآراء الجدلية.
-
+لا ترسل روابط لمواقع خارجية
+اجعل الرسالة نظيفة من كل العلامات واجعلها واضحة
 هدفك: تقديم الجواب الصحيح الموثوق من القرآن والسنة بأقل كلمات وأوضح أسلوب.`,
     };
 
@@ -75,7 +76,11 @@ export async function POST(request) {
     // 🔹 حوّل التاريخ لنص يُرسل لـ Ollama
     const formattedPrompt = conversationHistory
       .map((m) => `${m.role}: ${m.content}`)
-      .join("\n");
+      .join("\n")
+      .replace(/\n{2,}/g, "\n")
+      .replace(/^\s+|\s+$/g, "")
+      .replace("*", " ")
+
 
     // 🔹 طلب لـ Ollama Cloud API
     const response = await fetch("https://ollama.com/api/generate", {
@@ -85,7 +90,7 @@ export async function POST(request) {
         Authorization: `Bearer ${process.env.OLLAMA_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-oss:120b",
+        model: "deepseek-v3.1:671b-cloud",
         prompt: formattedPrompt,
         stream: false,
       }),
