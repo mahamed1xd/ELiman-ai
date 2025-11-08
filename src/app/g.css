@@ -24,6 +24,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'quran';
+  src: url('/fonts/Nabi.ttf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
 ::-webkit-scrollbar {
   display: none;
