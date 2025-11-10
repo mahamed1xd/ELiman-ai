@@ -25,7 +25,7 @@ export default function LoginCheck({ children }) {
 
   // طول ما لسه بيتحقق، متعرضش أي حاجة
   if (!checked) {
-    return <Loader />;
+      return <div className="flex justify-center items-center m-auto"><Loader /> </div>;
   }
 
   return children;

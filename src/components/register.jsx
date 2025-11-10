@@ -37,38 +37,44 @@ export default function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!name || !email || !password) {
+            toast.error("من فضلك املأ جميع الحقول", { duration: 2500 });
+            return;
+        }
+
         try {
             setLoading(true);
-            (image);
 
-            const response = await axios.post("/api/register", {
-                name,
-                email,
-                password,
-                role,
-                image,
-            });
+        const response = await axios.post("/api/register", {
+            name,
+            email,
+            password,
+            role,
+            image,
+        });
+
+        setLoading(false);
+
+        // backend الحالي بيرجع user و token مباشرة
+        const { user, token, message } = response.data;
+
+        setUser(user);
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", user.role);
+        localStorage.setItem("loggedIn", "true");
+        toast.success(message || "تم التسجيل بنجاح", { duration: 2500 });
+        router.push("/");
+    } catch (error) {
+        console.error("Error registering user:", error);
+            toast.error(
+                error.response?.data?.error || "فشل التسجيل",
+                { duration: 2500 }
+            );
             setLoading(false);
-
-            setUser(response.data.dataLogin.user)
-            localStorage.setItem("token", response.data.dataLogin.token);
-            localStorage.setItem("role", response.data.dataLogin.user.role);
-            localStorage.setItem("loggedIn", "true");
-            router.push("/");
-
-
-
-            toast.success(response.data.dataLogin.message, {
-                duration: 2500,
-            });
-        } catch (error) {
-            console.error("Error registering user:", error);
-            toast.error("Registration failed", {
-                duration: 2500,
-            });
-            setLoading(false)
         }
     };
+
     return (
         <div className="p-10 max-w-md mx-auto">
             <h1 className="text-2xl mb-4 text-center">إنشاء حساب</h1>
