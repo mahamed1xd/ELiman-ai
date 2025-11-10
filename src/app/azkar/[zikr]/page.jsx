@@ -57,6 +57,7 @@ export default function ZikrPage() {
           el.classList.add(
             "opacity-0",
             "scale-0",
+            "-ml-12",
             "duration-200"
           );
           setTimeout(() => el.classList.add("hidden"), 170);
@@ -70,8 +71,8 @@ export default function ZikrPage() {
   if (loading) return <Loader />;
 
   return (
-    <div className="flex flex-col w-[85%]">
-      <div className="carousel rounded-box w-full">
+    <div className="flex flex-col w-full">
+      <div className="carousel rounded-box w-[85%] m-auto">
         {azkar.map((zeekr, i) => (
           <div
             key={i}
