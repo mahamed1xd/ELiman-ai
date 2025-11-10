@@ -64,3 +64,11 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+@plugin "daisyui/theme" {
+  name: "lemonade";
+  color-scheme: "light";
+  --radius-selector: 1rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+}

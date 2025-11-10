@@ -1,9 +1,11 @@
 "use client";
-import { toast } from "sonner";
 import '@/css/main.css'
+
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
+  const router = useRouter()
   const [loggedIn, setLoggedIn] = useState(false)
   useEffect(() => {
     function check() {
@@ -26,8 +28,8 @@ export default function HomePage() {
             <h1 className="mb-5 text-5xl md:text-7xl font-black font-[ar1]">السلام عليكم</h1>
             <p className="mb-5 font-[ar2]">موقع بصيرة خطوة نحو فهمٍ أعمق، وإيمانٍ أصفى، وبصيرةٍ تهدي القلوب. مساحةٌ تنبض بالمعرفة، وتستنير بالقيم، هدفها أن تكون أثرًا طيبًا وصدقةً جارية في طريق كل من يبحث عن الهُدى والنور
             </p>
-            {!loggedIn &&
-              <button id="get" className="btn btn-primary" onClick={() => toast.success("Button clicked!")}>Get Started</button>
+            {(!loggedIn || loggedIn == false) &&
+              <button id="get" className="btn btn-primary" onClick={() => router.push('/login')}>Get Started</button>
             }
           </div>
         </div>
