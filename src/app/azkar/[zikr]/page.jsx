@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Loader from "@/components/loader";
 
 export default function ZikrPage() {
@@ -10,6 +10,7 @@ export default function ZikrPage() {
   const [azkar, setAzkar] = useState([]);
   const [counts, setCounts] = useState({});
   const [loading, setLoading] = useState(false);
+  const lastClickTime = useRef({}); // لتخزين آخر وقت ضغط لكل ذكر
 
   useEffect(() => {
     async function getAzkars() {
@@ -17,50 +18,83 @@ export default function ZikrPage() {
       try {
         const res = await fetch("/data/azkar.json");
         const data = await res.json();
-        setAzkar(data[zikr] || []);
+        const list = data[zikr] || [];
+        setAzkar(list);
+
+        const initialCounts = {};
+        list.forEach((item, index) => {
+          initialCounts[index] = item.count;
+        });
+        setCounts(initialCounts);
       } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
     }
+
     getAzkars();
   }, [zikr]);
 
   function handleCount(key) {
-    setCounts(prev => {
-      const newCount = (prev[key] ?? azkar[key].count) - 1;
-      if (newCount <= 0) {
-        document.querySelector(`#zikr-${key}`).classList.add("hidden");
-        return prev;
+    const now = Date.now();
+    const last = lastClickTime.current[key] || 0;
+    const cooldown = 500; // ← الفاصل بالمللي ثانية (هنا 0.8 ثانية)
+
+    // لو لسه الضغط قريب من السابق، تجاهل الضغط
+    if (now - last < cooldown) {
+      document.querySelector(`#button-${key}`).classList.remove('active:text-lg', 'active:bg-success-content', 'active:text-secondary')
+      return
+    };
+    document.querySelector(`#button-${key}`).classList.add('active:text-lg', 'active:bg-success-content', 'active:text-secondary')
+    lastClickTime.current[key] = now;
+
+    setCounts((prev) => {
+      const current = prev[key];
+      if (current <= 1) {
+        const el = document.querySelector(`#zikr-${key}`);
+        if (el) {
+          el.classList.add(
+            "opacity-0",
+            "scale-50",
+            "duration-700"
+          );
+          setTimeout(() => el.classList.add("hidden"), 700);
+        }
+        return { ...prev, [key]: 0 };
       }
-      return { ...prev, [key]: newCount };
+      return { ...prev, [key]: current - 1 };
     });
   }
 
   if (loading) return <Loader />;
 
   return (
-    <div className="flex flex-col">
-      {azkar.map((zeekr, i) => (
-        <div
-          id={`zikr-${i}`}
-          key={i}
-          onClick={() => handleCount(i)}
-          className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-center text-base-content p-4 m-4 border-2 border-neutral rounded shadow-2xl w-[85%]"
-        >
-          <p
-          onClick={() => handleCount(i)} 
-          className="text-2xl">{zeekr.content}</p>
-          <br />
-          <span
-            className="cursor-pointer badge badge-outline badge-secondary"
-            onClick={() => handleCount(i)}
+    <div className="flex flex-col w-[85%]">
+      <div className="carousel rounded-box w-full">
+        {azkar.map((zeekr, i) => (
+          <div
+            key={i}
+            id={`zikr-${i}`}
+            className="carousel-item w-full transition-all duration-700"
           >
-            {counts[i] ?? zeekr.count}
-          </span>
-        </div>
-      ))}
+            <div
+              className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-between text-base-content m-4 border-2 border-neutral rounded-lg shadow-2xl"
+            >
+              <p className="text-center direction-rtl text-2xl p-6">
+                {zeekr.content}
+              </p>
+              <button
+                id={`button-${i}`}
+                className="btn h-12 text-xl rounded-b-lg active:text-lg active:bg-success-content active:text-secondary duration-300 btn-secondary rounded-none w-full"
+                onClick={() => handleCount(i)}
+              >
+                {counts[i] ?? zeekr.count}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
