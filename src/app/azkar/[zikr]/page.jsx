@@ -56,10 +56,10 @@ export default function ZikrPage() {
         if (el) {
           el.classList.add(
             "opacity-0",
-            "scale-50",
-            "duration-700"
+            "scale-0",
+            "duration-200"
           );
-          setTimeout(() => el.classList.add("hidden"), 700);
+          setTimeout(() => el.classList.add("hidden"), 170);
         }
         return { ...prev, [key]: 0 };
       }
@@ -76,7 +76,7 @@ export default function ZikrPage() {
           <div
             key={i}
             id={`zikr-${i}`}
-            className="carousel-item w-full transition-all duration-700"
+            className="carousel-item w-full transition-all duration-200"
           >
             <div
               className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-between text-base-content m-4 border-2 border-neutral rounded-lg shadow-2xl"
@@ -86,7 +86,7 @@ export default function ZikrPage() {
               </p>
               <button
                 id={`button-${i}`}
-                className="btn h-12 text-xl rounded-b-lg active:text-lg active:bg-success-content active:text-secondary duration-300 btn-secondary rounded-none w-full"
+                className="btn h-12 text-xl rounded-b-lg active:text-[11px] active:bg-success-content active:text-secondary duration-700 btn-secondary rounded-none w-full"
                 onClick={() => handleCount(i)}
               >
                 {counts[i] ?? zeekr.count}

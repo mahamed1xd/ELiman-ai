@@ -2,10 +2,12 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import { toast } from "sonner";
 import Loader from "@/components/loader";
+import { Slice } from "lucide-react";
 
 export default function Quran() {
   const [surah, setSurah] = useState([]);
   const [ayat, setAyat] = useState([]);
+  const [Sayat, setSayat] = useState([])
   const [loading, setLoading] = useState(true);
   const [loadingA, setLoadingA] = useState(false);
   const [fromAyah, setFromAyah] = useState("");
@@ -60,16 +62,16 @@ export default function Quran() {
   };
 
   // تقسيم الآيات
-  const splitAyat = () => {
+  const splitAyat = (s) => {
     const from = parseInt(fromAyah);
     const to = parseInt(toAyah);
 
-    if (isNaN(from) || isNaN(to) || from < 1 || to < from) {
+    if (isNaN(from) || isNaN(to) || from > s || to > s || from < 1 || to < from) {
       toast.error("❌ الأرقام غير صحيحة");
       return;
     }
 
-    setAyat((prev) => prev.slice(from - 1, to));
+    setSayat(ayat.slice(from - 1, to));
   };
 
   if (loading) return <Loader />;
@@ -128,7 +130,7 @@ export default function Quran() {
               </div>
               <button
                 type="button"
-                onClick={splitAyat}
+                onClick={() => splitAyat(selectedSurah.numberOfAyahs)}
                 className="btn hover:bg-primary hover:text-primary-content active:bg-primary active:text-primary-content duration-500"
               >
                 تم
@@ -147,7 +149,7 @@ export default function Quran() {
                       بسم الله الرحمن الرحيم
                     </h1>
                   )}
-                  {ayat.map((ayah) => (
+                    {(Sayat?.length ? Sayat : ayat)?.map((ayah) => (
                     <span key={ayah.number} className="inline">
                       {ayah.text}
                       <span className="text-primary text-sm font-['quran']">
