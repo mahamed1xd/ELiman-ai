@@ -1,16 +1,15 @@
-// src/app/dashboard/ai/page.jsx
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useLoading } from "@/context/loading";
 import Loader from "@/components/loader";
 
 export default function FaithfulChat() {
-  const [messages, setMessages] = useState([]); // مصفوفة الرسائل { role, content }
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const { loading, setLoading } = useLoading();
   const boxRef = useRef();
 
-  // لتمرير الـ scroll لأسفل عند إضافة رسالة
+  // Scroll لآخر رسالة
   useEffect(() => {
     if (boxRef.current) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
@@ -33,9 +32,11 @@ export default function FaithfulChat() {
       const data = await res.json();
       const reply = data.message || data.error || "لم أتلقَّ ردًا.";
       setMessages((m) => [...m, { role: "assistant", content: reply }]);
-      
     } catch (err) {
-      setMessages((m) => [...m, { role: "assistant", content: "فشل الاتصال بالذكاء الإيماني." }]);
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", content: "فشل الاتصال بالذكاء الإيماني." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -58,48 +59,71 @@ export default function FaithfulChat() {
   };
 
   return (
-    <div className="block w-full h-full">
-    <div className="w-full mx-auto p-6 space-y-4">
-      <h1 className="text-2xl font-bold text-center">الذكاء الإيماني — دردشة</h1>
+    <div className="w-full h-full p-6">
+      <h1 className="text-xl md:text-3xl font-bold text-center mb-4 text-primary">
+        💡 الذكاء الإيماني — دردشة
+      </h1>
 
       <div
-          id="boxRef"
         ref={boxRef}
-          className="bg-base-50 p-4 m-auto rounded-lg w-full h-[480px] overflow-y-auto space-y-3 "
+        className="bg-base-200 shadow-inner rounded-2xl p-4 h-[480px] overflow-y-auto flex flex-col gap-3 scroll-smooth"
       >
         {messages.length === 0 && (
-          <div className="text-center text-base-400">ابدأ بالسؤال وسيجيبك الذكاء الإيماني.</div>
+          <div className="text-center text-base-content/60 mt-10">
+            ابدأ بالسؤال وسيجيبك الذكاء الإيماني 🤍
+          </div>
         )}
 
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`p-3 rounded-xl max-w-[90%] ${m.role === "user" ? "bg-neutral text-neutral-content ml-auto direction-rtl" : "direction-rtl bg-base-200 text-base-content mr-auto"}`}
+            className={`chat ${m.role === "user" ? "chat-start" : "chat-end"
+              } `}
           >
-            <p className="text-lg leading-8 direction-rtl text-right">{m.content}</p>
+            <div
+              className={`chat-bubble whitespace-pre-wrap leading-relaxed text-lg ${m.role === "user"
+                ? "chat-bubble-primary text-base-content"
+                : "chat-bubble-secondary-content text-base-content"
+                } p-4 text-right`}
+            >
+              <span className="direction-rtl text-right">{m.content}</span>
+            </div>
           </div>
         ))}
 
-          {loading && <div className="text-center text-base-600 italic">يفكر الذكاء الإيماني...</div>}
+        {loading && (
+          <div className="chat chat-end">
+            <div className="chat-bubble chat-bubble-secondary italic text-base-content/70 animate-pulse">
+              يفكر الذكاء الإيماني...
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="justify-center flex gap-2 mt-1.5 flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row gap-2 mt-4">
         <input
           type="text"
-            className="p-3 input input-bordered flex-1 h-10"
+          className="input input-bordered p-3 flex-1 h-12 text-lg"
           placeholder="اكتب سؤالك أو ذكر مشكلتك..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
         />
-        <button onClick={send} className="btn btn-primary" disabled={loading}>
-          {loading ? <Loader /> : 'إرسال'}
+        <button
+          onClick={send}
+          className="btn btn-primary h-12 text-lg"
+          disabled={loading}
+        >
+          {loading ? <Loader /> : "إرسال"}
         </button>
-        <button onClick={resetChat} className="btn btn-ghost bg-base-300 text-base-content hover:bg-base-200" disabled={loading}>
+        <button
+          onClick={resetChat}
+          className="btn btn-outline btn-error h-12 text-lg"
+          disabled={loading}
+        >
           مسح المحادثة
         </button>
       </div>
-    </div>
     </div>
   );
 }

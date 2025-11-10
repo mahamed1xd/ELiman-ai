@@ -106,6 +106,7 @@ export default function Quran() {
             <h2 className="text-center font-bold text-xl mb-2">{selectedSurah.name}</h2>
 
             <div className="flex flex-col md:flex-row-reverse items-baseline gap-2 justify-center">
+              <div className="flex flex-row-reverse gap-2 items-baseline">
               <span>اختار من الآية</span>
               <input
                 type="number"
@@ -124,10 +125,11 @@ export default function Quran() {
                 value={toAyah}
                 onChange={(e) => setToAyah(e.target.value)}
               />
+              </div>
               <button
                 type="button"
                 onClick={splitAyat}
-                className="btn hover:bg-primary hover:text-primary-content duration-300"
+                className="btn hover:bg-primary hover:text-primary-content active:bg-primary active:text-primary-content duration-500"
               >
                 تم
               </button>
