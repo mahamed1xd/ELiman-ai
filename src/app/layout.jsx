@@ -6,6 +6,7 @@ import { AuthProvider } from "@/context/authContext";
 import { LoadingProvider } from "@/context/loading";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata = {
   title: "Basera Ai",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#0d9488" />
       </head>
       <body className="min-h-screen flex flex-col">
+        <Analytics />
         <SpeedInsights />
         <AuthProvider>
           <LoginCheck>
