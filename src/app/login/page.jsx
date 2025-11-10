@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="p-10 lg:w-[40%] max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
+      <div className="p-10 lg:w-[40%] mt-24 md:mt-24 max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
         <h1 className="text-2xl mb-4 text-center">تسجيل الدخول</h1>
         <form className="flex flex-col gap-3">
         <input

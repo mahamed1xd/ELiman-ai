@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="forest">
       <head>
         <meta name="theme-color" content="#0d9488" />
+        <meta name="viewport" content="viewport-fit=cover" />
       </head>
       <body className="min-h-screen flex flex-col">
         <Analytics />
@@ -25,13 +26,15 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <LoginCheck>
             <LoadingProvider>
-              <NavbarComponent />
+              <NavbarComponent>
               <main className="flex-grow pt-[65px] flex justify-center items-center flex-col">
                 {children}
               </main>
+              </NavbarComponent>
               <footer className="mt-auto">
                 <Footer />
               </footer>
+
             </LoadingProvider>
           </LoginCheck>
         </AuthProvider>

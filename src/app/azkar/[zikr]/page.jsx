@@ -43,10 +43,8 @@ export default function ZikrPage() {
 
     // لو لسه الضغط قريب من السابق، تجاهل الضغط
     if (now - last < cooldown) {
-      document.querySelector(`#button-${key}`).classList.remove('active:text-lg', 'active:bg-success-content', 'active:text-secondary')
       return
     };
-    document.querySelector(`#button-${key}`).classList.add('active:text-lg', 'active:bg-success-content', 'active:text-secondary')
     lastClickTime.current[key] = now;
 
     setCounts((prev) => {
@@ -54,13 +52,14 @@ export default function ZikrPage() {
       if (current <= 1) {
         const el = document.querySelector(`#zikr-${key}`);
         if (el) {
+          document.querySelector(`#button-${key}`).disabled = true
           el.classList.add(
-            "opacity-0",
-            "scale-0",
-            "-ml-12",
-            "duration-200"
+            "lg:opacity-0",
+            "lg:scale-0",
+            "lg:-ml-44",
+            "lg:duration-500"
           );
-          setTimeout(() => el.classList.add("hidden"), 170);
+          setTimeout(() => el.classList.add("lg:hidden"), 470);
         }
         return { ...prev, [key]: 0 };
       }
@@ -80,14 +79,14 @@ export default function ZikrPage() {
             className="carousel-item w-full transition-all duration-200"
           >
             <div
-              className="mx-auto my-5 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-between text-base-content m-4 border-2 border-neutral rounded-lg shadow-2xl"
+              className="mx-auto my-5 lg:my-32 cursor-pointer bg-base-200 text-2xl duration-500 flex flex-col items-center justify-between text-base-content m-4 border-2 border-neutral rounded-lg shadow-2xl"
             >
               <p className="text-center direction-rtl text-2xl p-6">
                 {zeekr.content}
               </p>
               <button
                 id={`button-${i}`}
-                className="btn h-12 text-xl rounded-b-lg active:text-[11px] active:bg-success-content active:text-secondary duration-700 btn-secondary rounded-none w-full"
+                className="btn h-12 text-xl rounded-b-md active:text-[11px] active:border-neutral-content active:bg-neutral-content active:text-neutral duration-700 btn-neutral rounded-none w-full"
                 onClick={() => handleCount(i)}
               >
                 {counts[i] ?? zeekr.count}
