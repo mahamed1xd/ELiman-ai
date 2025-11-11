@@ -102,7 +102,7 @@ export default function Quran() {
         {selectedSurah && (
           <div className="modal-box max-w-full">
             <form method="dialog" className="sticky top-0">
-              <button className="btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+              <button onClick={() => setSayat([])} className="btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
             </form>
 
             <h2 className="text-center font-bold text-xl mb-2">{selectedSurah.name}</h2>
