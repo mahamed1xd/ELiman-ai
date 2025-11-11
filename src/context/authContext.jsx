@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, createContext, useContext } from "react";
+import jwt from 'jsonwebtoken';
 
 // إنشاء الـ context
 const AuthContext = createContext();
@@ -9,14 +10,13 @@ export function AuthProvider({ children }) {
 
   // 🟢 استرجاع بيانات المستخدم من localStorage عند تحميل الصفحة
   useEffect(() => {
-    const userImage = localStorage.getItem("profileImage")
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      setUser({
-        ...JSON.parse(savedUser),
-        image: userImage, // الصورة Base64
-      });
-      
+    const token = localStorage.getItem("token");
+    const user = jwt.decode(token);
+    console.log(user);
+
+    if (user) {
+      setUser(user);
+
     }
   }, []);
 
@@ -24,6 +24,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
+
     } else {
       localStorage.removeItem("user");
     }
