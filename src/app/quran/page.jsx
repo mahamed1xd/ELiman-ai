@@ -105,7 +105,7 @@ export default function Quran() {
               <button onClick={() => setSayat([])} className="btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
             </form>
 
-            <h2 className="text-center font-bold text-xl mb-2">{selectedSurah.name}</h2>
+            <h2 className="text-center font-bold text-xl mb-2"> {selectedSurah.name}</h2>
 
             <div className="flex flex-col md:flex-row-reverse items-baseline gap-2 justify-center">
               <div className="flex flex-row-reverse gap-2 items-baseline">
