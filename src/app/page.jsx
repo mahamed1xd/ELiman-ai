@@ -8,6 +8,7 @@ import Lenis from "lenis";
 // -------------------------------------
 // 🔥 Component: Section Card (Optimized)
 // -------------------------------------
+
 const SectionCard = memo(function SectionCard({ title, desc, link, img }) {
   const router = useRouter();
 
@@ -15,13 +16,13 @@ const SectionCard = memo(function SectionCard({ title, desc, link, img }) {
 
   return (
     <div className="sticky top-0 h-screen grid font-[ar3] text-right direction-rtl place-content-center">
-      <div className="group card min-w-[100%] h-[100%] hover:scale-[1.02] duration-300 transition-all">
+      <div className="card group min-w-[100%] h-[100%] hover:scale-[1.02] transition-transform duration-300 will-change-transform">
         <figure>
           <img
-            className="brightness-50 duration-300 group-hover:brightness-100"
             src={img}
             alt={title}
             loading="lazy"
+            className="w-full h-full object-cover brightness-50 group-hover:brightness-100 transition-[filter] duration-300 will-change-[filter]"
           />
         </figure>
 
@@ -42,6 +43,7 @@ const SectionCard = memo(function SectionCard({ title, desc, link, img }) {
     </div>
   );
 });
+
 
 export default function HomePage() {
   const router = useRouter();
