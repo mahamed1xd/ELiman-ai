@@ -1,4 +1,5 @@
 import "./g.css";
+import 'aos/dist/aos.css';
 import Footer from "@/components/footer.jsx";
 import NavbarComponent from "@/components/navbar";
 import LoginCheck from "@/components/loginCheck";
@@ -12,9 +13,12 @@ export const metadata = {
   title: "Basera Ai",
   description: "An app for all Muslims",
   manifest: "/manifest.json",
-  icons: [
-    { rel: "icon", url: "/icons/icon-192x192.png" }
-  ],
+  icons: {
+    icon: '/icons/icon-512x512.png',
+    apple: '/icons/icon-192x192.png',
+    other: '/icons/icon-512x512.png',
+
+  }
 
 };
 
@@ -22,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="forest">
       <head>
+        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0d9488" />
         <meta name="viewport" content="viewport-fit=cover" />
       </head>

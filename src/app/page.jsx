@@ -4,8 +4,14 @@ import "@/css/main.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Lenis from "lenis";
+import AOS from "aos";
 
 export default function HomePage() {
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -33,14 +39,24 @@ export default function HomePage() {
   }, []);
 
   // 🔥 component reusable
-  const SectionCard = ({ title, desc, link }) => (
-    <div className="sticky top-0 h-screen grid font-[ar3] text-right direction-rtl place-content-center">
-      <div className="bg-base-100 w-full p-10 rounded-2xl shadow-xl shadow-base-300/30 hover:scale-[1.02] transition-all duration-300">
-        <h1 className="font-[ar3] p-3 text-2xl text-secondary">{title}</h1>
+  const SectionCard = ({ title, desc, link, img, efect }) => (
+    <div data-aos={efect || "fade-up"} className="sticky top-0 h-screen grid font-[ar3] text-right direction-rtl place-content-center">
+      <div className="group card min-w-[100%] h-[100%] m-auto hover:scale-[1.02] transition-all duration-300">
+        <figure>
+          <img
+            className="brightness-50 duration-300 group-hover:brightness-100"
+            src={img}
+            alt="img" />
+        </figure>
+        <div className="card-body bg-base-100 w-full p-10 rounded-2xl shadow-xl shadow-base-300/30 ">
+          <h1 className="card-title font-[ar3] p-3 text-2xl text-secondary">{title}</h1>
         <p className="font-[ar3] p-3 text-md text-base-content">{desc}</p>
-        <button className="btn btn-primary mt-4 text-base" onClick={() => router.push(link)}>
-          المزيد
-        </button>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary mt-4 text-base" onClick={() => router.push(link)}>
+              المزيد
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -83,17 +99,24 @@ export default function HomePage() {
               title="علوم القرآن"
               desc="كل ما يتعلق بعلوم القرآن في مكان واحد."
               link="/quran"
+              img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
+              efect="fade-left"
             />
             <SectionCard
               title="الأذكار"
               desc="مجموعة منظمة من الأذكار اليومية."
               link="/azkar"
+              img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
+              efect="fade-right"
             />
             <SectionCard
               title="الذكاء الإيماني"
               desc="مساعدك الذكي موجود معاك وقت ما تحتاجه."
               link="/ai/chat"
+              img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
+              efect="fade-down"
             />
+
           </div>
         </section>
       </div>
