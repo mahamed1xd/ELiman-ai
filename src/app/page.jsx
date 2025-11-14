@@ -38,7 +38,7 @@ export default function HomePage() {
       <div className="bg-base-100 w-full p-10 rounded-2xl shadow-xl shadow-base-300/30 hover:scale-[1.02] transition-all duration-300">
         <h1 className="font-[ar3] p-3 text-2xl text-secondary">{title}</h1>
         <p className="font-[ar3] p-3 text-md text-base-content">{desc}</p>
-        <button className="btn btn-primary mt-4" onClick={() => router.push(link)}>
+        <button className="btn btn-primary mt-4 text-base" onClick={() => router.push(link)}>
           المزيد
         </button>
       </div>
