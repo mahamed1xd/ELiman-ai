@@ -4,22 +4,17 @@ import "@/css/main.css";
 import { useEffect, useState, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import Lenis from "lenis";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 // -------------------------------------
 // 🔥 Component: Section Card (Optimized)
 // -------------------------------------
-const SectionCard = memo(function SectionCard({ title, desc, link, img, efect }) {
+const SectionCard = memo(function SectionCard({ title, desc, link, img }) {
   const router = useRouter();
 
   const goTo = useCallback(() => router.push(link), [router, link]);
 
   return (
-    <div
-      data-aos={efect || "fade-up"}
-      className="sticky top-0 h-screen grid font-[ar3] text-right direction-rtl place-content-center"
-    >
+    <div className="sticky top-0 h-screen grid font-[ar3] text-right direction-rtl place-content-center">
       <div className="group card min-w-[100%] h-[100%] hover:scale-[1.02] duration-300 transition-all">
         <figure>
           <img
@@ -51,17 +46,6 @@ const SectionCard = memo(function SectionCard({ title, desc, link, img, efect })
 export default function HomePage() {
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
-
-  // -------------------------------------
-  // 🎬 Init AOS
-  // -------------------------------------
-  useEffect(() => {
-    AOS.init({
-      duration: 600,
-      once: true, 
-      easing: "ease-out-cubic",
-    });
-  }, []);
 
   // -------------------------------------
   // 🌀 Lenis Smooth Scroll
@@ -107,7 +91,11 @@ export default function HomePage() {
               <p className="mb-5 leading-8">
                 موقع بصيرة… خطوة نحو فهمٍ أعمق وإيمانٍ أصفى.
                 <br />
-                ❝ قال الله تعالى: {`{ فَمَن يُرِدِ ٱللَّهُ أَن يَهْدِيَهُ يَشْرَحْ صَدْرَهُ لِلْإِسْلَـٰمِ }`}
+                قال الله تعالى:
+                <br />
+                <span className="font-bold">
+                  {`{ فَمَن يُرِدِ ٱللَّهُ أَن يَهْدِيَهُ يَشْرَحْ صَدْرَهُ لِلْإِسْلَـٰمِ }`}
+                </span>
                 <br />
                 <span className="text-xs">(سورة الأنعام: 125)</span>
               </p>
@@ -132,21 +120,18 @@ export default function HomePage() {
               desc="كل ما يتعلق بعلوم القرآن في مكان واحد."
               link="/quran"
               img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
-              efect="fade-left"
             />
             <SectionCard
               title="الأذكار"
               desc="مجموعة منظمة من الأذكار اليومية."
               link="/azkar"
               img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
-              efect="fade-right"
             />
             <SectionCard
               title="الذكاء الإيماني"
               desc="مساعدك الذكي موجود معاك وقت ما تحتاجه."
               link="/ai/chat"
               img="https://www.dar-alifta.org/images/Fatwa/raergeragrtgt.jpeg"
-              efect="fade-down"
             />
           </div>
         </section>
