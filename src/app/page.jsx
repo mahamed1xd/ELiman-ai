@@ -78,7 +78,7 @@ export default function HomePage() {
           id="sec2"
           className="bg-base-100 w-full items-center min-h-screen sticky top-0"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-3 px-8 w-full gap-4 py-10">
+          <div className="grid grid-cols-1 px-8 w-full gap-4 py-10">
             <SectionCard
               title="علوم القرآن"
               desc="كل ما يتعلق بعلوم القرآن في مكان واحد."

@@ -11,6 +11,11 @@ import { Analytics } from "@vercel/analytics/next"
 export const metadata = {
   title: "Basera Ai",
   description: "An app for all Muslims",
+  manifest: "/manifest.json",
+  icons: [
+    { rel: "icon", url: "/icons/icon-192x192.png" }
+  ],
+
 };
 
 export default function RootLayout({ children }) {
