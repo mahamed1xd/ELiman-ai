@@ -17,4 +17,18 @@
       "type": "image/png"
     }
   ]
+  ,
+  "screenshots": [
+    {
+      "src": "/wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/h.png",
+      "sizes": "640x1136",
+      "type": "image/png"
+    }
+  ]
 }
