@@ -103,7 +103,7 @@ export default function FaithfulChat() {
       <div className="flex flex-col md:flex-row gap-2 mt-4">
         <input
           type="text"
-          className="input input-bordered p-3 flex-1 h-12 text-lg"
+          className="input input-bordered w-auto p-3 flex-1 h-12 text-lg"
           placeholder="اكتب سؤالك أو ذكر مشكلتك..."
           value={input}
           onChange={(e) => setInput(e.target.value)}

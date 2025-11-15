@@ -19,6 +19,9 @@ export default function NavbarComponent() {
     if (path.startsWith("/ai")) setActivePage("ai");
     else if (path.startsWith("/quran")) setActivePage("quran");
     else if (path.startsWith("/azkar")) setActivePage("azkar");
+    else if (path.startsWith("/settings")) setActivePage("settings");
+    else if (path.startsWith("/profile")) setActivePage("profile");
+    else if (path.startsWith("/admin/dashboard")) setActivePage("admin");
     else setActivePage("home");
   }, [path]);
 
@@ -29,7 +32,10 @@ export default function NavbarComponent() {
       page === "home" ? "/" :
         page === "ai" ? "/ai/chat" :
           page === "quran" ? "/quran" :
-            "/azkar"
+            page === "azkar" ? "/azkar" :
+              page === "settings" ? "/settings" :
+                page === "profile" ? "/profile" :
+                  page === "admin" ? "/admin/dashboard" : "/"
     );
   }
 
@@ -94,11 +100,22 @@ export default function NavbarComponent() {
 
   return (
     <div >
-      <div id="nav" className="fixed direction-rtl border-neutral z-50 transition-all duration-100 navbar bg-base-100 shadow-md">
+      <div className="drawer drawer-end">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+
+        <div id="nav" className="fixed direction-rtl border-neutral z-5 transition-all duration-100 navbar bg-base-100 shadow-md">
+
         <div className="navbar-center w-auto">
+
+            <div className="flex-none lg:hidden ml-1.5">
+              <label htmlFor="my-drawer-2" aria-label="open sidebar" className="btn btn-square btn-ghost">
+                <FontAwesomeIcon icon={faBars} size="lg" />
+              </label>
+            </div>
+
           <Link
             href="/"
-            className="btn flex justify-center items-center text-base-content hover:text-primary-content hover:bg-primary duration-300 text-4xl font-[logo]"
+              className="btn flex active:bg-primary active:text-primary-content justify-center items-center text-base-content hover:text-primary-content hover:bg-primary duration-300 text-4xl font-[logo]"
           >
             بصيره
           </Link>
@@ -106,9 +123,10 @@ export default function NavbarComponent() {
         <div className="navbar-start">
           <div className="hidden lg:justify-between lg:flex">
             <ul className="menu menu-horizontal flex-row-reverse px-1">
-              <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2]" href="/ai/chat">الذكاء الاصطناعي</Link></li>
-              <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2]" href='/azkar'>الأذكار</Link></li>
-              <li><Link className="hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2]" href='/quran'>القرآن الكريم</Link></li>
+                <li><Link onClick={() => setActivePage("ai")} className={activePage === "ai" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href="/ai/chat">الذكاء الاصطناعي</Link></li>
+                <li><Link onClick={() => setActivePage("azkar")} className={activePage === "azkar" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/azkar'>الأذكار</Link></li>
+                <li><Link onClick={() => setActivePage("quran")} className={activePage === "quran" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/quran'>القرآن الكريم</Link></li>
+                <li><Link onClick={() => setActivePage("home")} className={activePage === "home" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/'>الرئيسية</Link></li>
           </ul>
           </div>
         </div>
@@ -135,15 +153,26 @@ export default function NavbarComponent() {
                 <ul tabIndex={0} className="menu menu-md dropdown-content border-2 border-primary bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                   {role === "admin" && (
                     <li>
-                      <Link href="/admin/dashboard" className="hover:bg-primary hover:text-primary-content duration-400 text-base-content"> <FontAwesomeIcon icon={faUserShield} className="size-[1.2em]" /> لوحة التحكم</Link>
+                        <Link href="/admin/dashboard" onClick={() => setActivePage("admin")} className={activePage === "admin" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} > <FontAwesomeIcon icon={faUserShield} className="size-[1.2em]" /> لوحة التحكم</Link>
                     </li>
                   )}
-                  <li><Link href="/profile" className="hover:bg-primary hover:text-primary-content duration-400 text-base-content"> <FontAwesomeIcon icon={faUser} className="size-[1.2em]" /> الملف الشخصي</Link></li>
-                  <li><Link href="/settings" className="hover:bg-primary hover:text-primary-content duration-400 text-base-content"> <FontAwesomeIcon icon={faCog} className="size-[1.2em]" /> الإعدادات</Link></li>
-                  <li><button onClick={handleLogout} className="hover:bg-primary hover:text-primary-content duration-400 text-base-content"> <FontAwesomeIcon icon={faSignOutAlt} className="size-[1.2em]" /> تسجيل الخروج</button></li>
+                    <li><Link href="/profile" onClick={() => setActivePage("profile")} className={activePage === "profile" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} > <FontAwesomeIcon icon={faUser} className="size-[1.2em]" /> الملف الشخصي</Link></li>
+                    <li><Link href="/settings" onClick={() => setActivePage("settings")} className={activePage === "settings" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} > <FontAwesomeIcon icon={faCog} className="size-[1.2em]" /> الإعدادات</Link></li>
+                    <li><button onClick={handleLogout} className="active:bg-primary active:text-primary-content hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"> <FontAwesomeIcon icon={faSignOutAlt} className="size-[1.2em]" /> تسجيل الخروج</button></li>
                 </ul>
               </div>
           )}
+        </div>
+      </div>
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+          <ul className="menu bg-base-200 min-h-full w-80 p-4 direction-rtl" >
+            {/* Sidebar content here */}
+            <li><Link href="/" onClick={() => setActivePage("home")} className={activePage === "home" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faHome} className="size-[1.2em]" /> الرئيسية</Link></li>
+            <li><Link href="/azkar" onClick={() => setActivePage("azkar")} className={activePage === "azkar" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faStarAndCrescent} className="size-[1.2em]" /> الأذكار</Link></li>
+            <li><Link href="/quran" onClick={() => setActivePage("quran")} className={activePage === "quran" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faBookQuran} className="size-[1.2em]" /> القرآن الكريم</Link></li>
+            <li><Link href="/ai/chat" onClick={() => setActivePage("ai")} className={activePage === "ai" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faCommentDots} className="size-[1.2em]" /> الذكاء الاصطناعي</Link></li>
+          </ul>
         </div>
       </div>
       <div
@@ -175,6 +204,9 @@ export default function NavbarComponent() {
         </button>
       </div>
       </PwaOnly>
+
+
+
     </div>
   );
 }
