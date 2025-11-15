@@ -56,7 +56,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="w-full p-5">
+    <main className="w-full">
       <div className="wrapper">
         {/* Hero */}
         <div id="header" className="hero h-screen w-full">

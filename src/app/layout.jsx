@@ -1,5 +1,6 @@
 import "./g.css";
 import 'aos/dist/aos.css';
+import Footer from "@/components/footer.jsx";
 import NavbarComponent from "@/components/navbar";
 import LoginCheck from "@/components/loginCheck";
 import { AuthProvider } from "@/context/authContext";
@@ -39,7 +40,10 @@ export default function RootLayout({ children }) {
                 <NavbarComponent />
               <main className="flex-grow pt-[65px] flex justify-center items-center flex-col">
                 {children}
-                </main>      
+                </main>
+                <footer className="mt-auto">
+                  <Footer />
+                </footer>
 
             </LoadingProvider>
           </LoginCheck>
