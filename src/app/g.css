@@ -10,6 +10,17 @@
   color-scheme: light !important;
 }
 
+
+
+
+
+@font-face {
+  font-family: 'logo';
+  src: url('/fonts/mainF.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: 'ar1';
   src: url('/fonts/alfont_com_ArabicPoetry-Medium.otf') format('opentype');

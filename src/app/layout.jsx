@@ -8,7 +8,7 @@ import { LoadingProvider } from "@/context/loading";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next"
-
+import ThemeProvider from "@/components/themeprov";
 export const metadata = {
   title: "Basera Ai",
   description: "An app for all Muslims",
@@ -24,23 +24,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="forest">
+    <html>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0d9488" />
         <meta name="viewport" content="viewport-fit=cover" />
       </head>
+      <ThemeProvider>
       <body className="min-h-screen flex flex-col">
         <Analytics />
         <SpeedInsights />
         <AuthProvider>
           <LoginCheck>
             <LoadingProvider>
-              <NavbarComponent>
+                <NavbarComponent />
               <main className="flex-grow pt-[65px] flex justify-center items-center flex-col">
                 {children}
-              </main>
-              </NavbarComponent>
+                </main>
               <footer className="mt-auto">
                 <Footer />
               </footer>
@@ -50,6 +50,7 @@ export default function RootLayout({ children }) {
         </AuthProvider>
         <Toaster position="top-right" richColors />
       </body>
+      </ThemeProvider>
     </html>
   );
 }
