@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
   <aside className="grid-flow-col items-center">
 
-          <p>Copyright © {new Date().getFullYear()} - All right reserved to Mohamed A.Essa</p>
+          <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
         </aside>
 </footer>
     </>
