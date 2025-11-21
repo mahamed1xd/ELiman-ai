@@ -14,7 +14,7 @@ const SectionCard = memo(function SectionCard({ title, desc, link, icon, eff }) 
   return (
     <div
       className="w-full h-96 grid font-[ar3] text-right direction-rtl place-content-center"
-      data-aos={eff} // استخدام effect لكل كارت
+      data-aos={eff || "fade-in"} // استخدام effect لكل كارت
     >
       <div className="card w-[100%] mx-auto hover:scale-[1.02] duration-300 transition-all bg-base-100 border-2 border-primary rounded-xl shadow-xl shadow-base-300/30">
         <span className="w-20 h-20 flex items-center mx-auto mt-2 justify-center rounded-full bg-primary text-primary-content p-4">
@@ -57,7 +57,6 @@ export default function HomePage() {
 
   return (
     <main className="w-full">
-      <div className="wrapper">
         {/* Hero */}
         <div id="header" className="hero h-screen w-full">
           <div className="hero-content flex flex-col justify-center items-center text-neutral-content text-center h-full">
@@ -89,31 +88,27 @@ export default function HomePage() {
 
         {/* Sections */}
         <section id="sec2" className="bg-base-100 w-full min-h-screen">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-8 w-full gap-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-8 w-full gap-6 py-10">
             <SectionCard
               title="علوم القرآن"
               desc="كل ما يتعلق بعلوم القرآن في مكان واحد."
               link="/quran"
-              icon={faQuran}
-              eff="zoom-in-right"
+            icon={faQuran}
             />
             <SectionCard
               title="الأذكار"
               desc="مجموعة منظمة من الأذكار اليومية."
               link="/azkar"
-              icon={faHeart}
-              eff="zoom-in"
+            icon={faHeart}
             />
             <SectionCard
               title="الذكاء الإيماني"
               desc="مساعدك الذكي موجود معاك وقت ما تحتاجه."
               link="/ai/chat"
-              icon={faBrain}
-              eff="zoom-in-left"
+            icon={faBrain}
             />
           </div>
-        </section>
-      </div>
+      </section>
     </main>
   );
 }
