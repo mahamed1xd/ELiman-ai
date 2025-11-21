@@ -7,12 +7,17 @@ import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
 import Loader from "@/components/loader";
 import { useLoading } from "@/context/loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faEye, faEyeSlash, faKey } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function LoginPage() {
   const { loading, setLoading } = useLoading();
   const router = useRouter();
   const { user, setUser } = useAuth();
   const [email, setEmail] = useState('');
+  const [show, setShow] = useState(false);
+  const [p, setP] = useState("password");
   const [password, setPassword] = useState('');
 
   async function handleLogin(e) {
@@ -47,20 +52,40 @@ export default function LoginPage() {
       <div className="p-10 lg:w-[40%] mt-24 md:mt-24 max-w-md mx-auto bg-base-100 rounded-lg duration-700  shadow-2xl hover:shadow-neutral shadow-base-300">
         <h1 className="text-2xl mb-4 text-center">تسجيل الدخول</h1>
         <form className="flex flex-col gap-3">
+          <label className="input w-[100%] rounded">
+            <FontAwesomeIcon icon={faEnvelope} className="opacity-40" /> 
         <input
           type="email"
           value={email}
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
+              onChange={(e) => setEmail(e.target.value.toLocaleLowerCase())}
         />
+          </label>
+          <label className="input w-[100%] rounded">
+            <FontAwesomeIcon icon={faKey} className="opacity-40" />
         <input
-          type="password"
+              type={p}
           placeholder="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
-          />
+              onChange={(e) => setPassword(e.target.value.toLocaleLowerCase())}
+            />
+
+            <label className="swap swap-active2">
+              <input
+                type="checkbox"
+                checked={show}
+                onChange={() => {
+                  setShow(!show);
+                  setP(!show ? "text" : "password");
+                }}
+              />
+
+              <FontAwesomeIcon icon={faEye} className="swap-off cursor-pointer" />
+              <FontAwesomeIcon icon={faEyeSlash} className="swap-on cursor-pointer" />
+            </label>
+
+
+          </label>
 
         </form>
         <div className="mt-2 flex justify-evenly">

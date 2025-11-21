@@ -6,8 +6,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
 import { useLoading } from "@/context/loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function RegisterPage() {
+    const [show, setShow] = useState(false);
+    const [p, setP] = useState("password");
     const [image, setImage] = useState('')
     const router = useRouter();
     const { setUser } = useAuth();
@@ -47,9 +52,9 @@ export default function RegisterPage() {
             setLoading(true);
 
         const response = await axios.post("/api/register", {
-            name,
-            email,
-            password,
+            name: name.toLocaleLowerCase(),
+            email: email.toLocaleLowerCase(),
+            password: password.toLocaleLowerCase(),
             role,
             image,
         });
@@ -84,9 +89,26 @@ export default function RegisterPage() {
                         {image && <img src={image} />}
                     </div>
                 </div>
-        <input type="text" placeholder="الاسم" className="border p-2" onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="البريد الإلكتروني" className="border p-2" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="كلمة المرور" className="border p-2" />
+                <input type="text" placeholder="الاسم" className="input w-full text-right direction-rtl" onChange={(e) => setName(e.target.value)} />
+                <input type="email" placeholder="البريد الإلكتروني" className="input w-full text-right direction-rtl" onChange={(e) => setEmail(e.target.value)} />
+                <label className="input w-full text-right direction-rtl">
+                    <input type={p} onChange={(e) => setPassword(e.target.value)} placeholder="كلمة السر" />
+
+                    <label className="swap swap-active2">
+                        <input
+                            type="checkbox"
+                            checked={show}
+                            onChange={() => {
+                                setShow(!show);
+                                setP(!show ? "text" : "password");
+                            }}
+                        />
+
+                        <FontAwesomeIcon icon={faEye} className="swap-off cursor-pointer" />
+                        <FontAwesomeIcon icon={faEyeSlash} className="swap-on cursor-pointer" />
+                    </label>
+
+                </label>
                 <fieldset className="fieldset">
                     <legend className="fieldset-legend">Pick an Image</legend>
                     <input type="file" onChange={handleImage} className="file-input w-full" />

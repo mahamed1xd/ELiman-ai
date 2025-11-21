@@ -12,6 +12,29 @@
 
 
 
+@layer utilities {
+  /* الحالة اللي فيها الـ swap-on فعّال */
+  .swap-active2 input:checked ~ .swap-on {
+    opacity: 0.4 !important;
+  }
+
+  .swap-active2 input:checked ~ .swap-off {
+    opacity: 0 !important;
+  }
+
+  /* الحالة العكسية: لما input مش checked */
+  .swap-active2 input:not(:checked) ~ .swap-on {
+    opacity: 0 !important;
+  }
+
+  .swap-active2 input:not(:checked) ~ .swap-off {
+    opacity: 0.4 !important; /* خليه برضه 40% أو زي ما تحب */
+  }
+}
+
+
+
+
 
 
 @font-face {
