@@ -89,10 +89,10 @@ export default function RegisterPage() {
                         {image && <img src={image} />}
                     </div>
                 </div>
-                <input type="text" placeholder="الاسم" className="input w-full text-right direction-rtl" onChange={(e) => setName(e.target.value)} />
-                <input type="email" placeholder="البريد الإلكتروني" className="input w-full text-right direction-rtl" onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" placeholder="الاسم" className="input w-full text-right direction-rtl" onChange={(e) => setName(e.target.value.toLocaleLowerCase())} />
+                <input type="email" placeholder="البريد الإلكتروني" className="input w-full text-right direction-rtl" onChange={(e) => setEmail(e.target.value.toLocaleLowerCase())} />
                 <label className="input w-full text-right direction-rtl">
-                    <input type={p} onChange={(e) => setPassword(e.target.value)} placeholder="كلمة السر" />
+                    <input type={p} onChange={(e) => setPassword(e.target.value.toLocaleLowerCase())} placeholder="كلمة السر" />
 
                     <label className="swap swap-active2">
                         <input
@@ -115,7 +115,7 @@ export default function RegisterPage() {
                 </fieldset>
                 <select onChange={(e) => setRole(e.target.value)} name="role" defaultValue="Pick a text editor" className="select w-full">
                     <option disabled={true}>Pick a role</option>
-                    <option value="user">مستخدم</option>
+                    <option value="user"></option>
             <option value="admin">مشرف</option>
         </select>
 
@@ -126,3 +126,4 @@ export default function RegisterPage() {
     )
 }
 
+مستخدم
