@@ -11,13 +11,12 @@ export default function Settings() {
     "light", "cupcake", "bumblebee", "emerald", "corporate",
     "retro", "cyberpunk", "valentine", "garden", "lofi", "pastel",
     "fantasy", "wireframe", "cmyk", "autumn", "acid", "lemonade",
-    "winter", "dim", "nord", "sunset",
+    "winter", "nord"
   ];
 
   const darkThemes = [
     "dark", "synthwave", "halloween", "forest", "black", "luxury",
-    "dracula", "business", "night", "coffee",
-  ];
+    "dracula", "business", "night", "coffee", "dim", "sunset"];
 
   return (
     <div className="w-[85%] p-4 flex bg-base-200 shadow-2xl rounded">
