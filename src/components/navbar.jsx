@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useAuth } from "@/context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faUser, faCog, faSignOutAlt, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,29 @@ export default function NavbarComponent() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const path = usePathname()
   const [activePage, setActivePage] = useState("home");
+
+
+  const DocsLinks = memo(function SectionCard({ name, label, icon }) {
+    return (
+      <button className={activePage === name ? "dock-active" : ""} id={name} onClick={() => switching(`${name}`)}>
+        <FontAwesomeIcon icon={icon} className="size-[1.2em]" />
+        <span className="dock-label">{label}</span>
+      </button>
+    );
+  });
+  const LargeMenuLinks = memo(function SectionCard({ name, label }) {
+    return (
+      <li> <span onClick={() => switching(name)} className={activePage === `${name}` ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"}>{label} </span> </li>
+    );
+  });
+  const SidebarLinks = memo(function SectionCard({ name, label, icon }) {
+    return (
+      <li><span onClick={() => switching(name)} className={activePage === name ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={icon} className="size-[1.2em]" />{label}</span></li>
+
+    );
+  });
+
+
 
   useEffect(() => {
     if (path.startsWith("/ai")) setActivePage("ai");
@@ -123,10 +146,10 @@ export default function NavbarComponent() {
         <div className="navbar-start">
           <div className="hidden lg:justify-between lg:flex">
             <ul className="menu menu-horizontal flex-row-reverse px-1">
-                <li><Link onClick={() => setActivePage("ai")} className={activePage === "ai" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href="/ai/chat">الذكاء الاصطناعي</Link></li>
-                <li><Link onClick={() => setActivePage("azkar")} className={activePage === "azkar" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/azkar'>الأذكار</Link></li>
-                <li><Link onClick={() => setActivePage("quran")} className={activePage === "quran" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/quran'>القرآن الكريم</Link></li>
-                <li><Link onClick={() => setActivePage("home")} className={activePage === "home" ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"} href='/'>الرئيسية</Link></li>
+                <LargeMenuLinks name='ai' label='الذكاء الصطناعي' />
+                <LargeMenuLinks name='azkar' label='الأذكار' />
+                <LargeMenuLinks name='quran' label='القران الكريم' />
+                <LargeMenuLinks name='home' label='الصفحة الرئيسية' />
           </ul>
           </div>
         </div>
@@ -168,10 +191,10 @@ export default function NavbarComponent() {
           <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 min-h-full w-80 p-4 direction-rtl" >
             {/* Sidebar content here */}
-            <li><Link href="/" onClick={() => setActivePage("home")} className={activePage === "home" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faHome} className="size-[1.2em]" /> الرئيسية</Link></li>
-            <li><Link href="/azkar" onClick={() => setActivePage("azkar")} className={activePage === "azkar" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faStarAndCrescent} className="size-[1.2em]" /> الأذكار</Link></li>
-            <li><Link href="/quran" onClick={() => setActivePage("quran")} className={activePage === "quran" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faBookQuran} className="size-[1.2em]" /> القرآن الكريم</Link></li>
-            <li><Link href="/ai/chat" onClick={() => setActivePage("ai")} className={activePage === "ai" ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={faCommentDots} className="size-[1.2em]" /> الذكاء الاصطناعي</Link></li>
+            <SidebarLinks name='home' icon={faHome} label='الصفحة الرئيسية' />
+            <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
+            <SidebarLinks name='quran' icon={faBookQuran} label='القران الكريم' />
+            <SidebarLinks name='ai' icon={faCommentDots} label='الذكاء الاصطناعي' />
           </ul>
         </div>
       </div>
@@ -183,25 +206,10 @@ export default function NavbarComponent() {
       <PwaOnly>
 
       <div className="dock bg-neutral lg:hidden bottom-[-1px] w-[101%] text-neutral-content">
-        <button className={activePage === "home" ? "dock-active" : ""} id="home" onClick={() => switching('home')}>
-          <FontAwesomeIcon icon={faHome} className="size-[1.2em]" />
-            <span className="dock-label">الرئيسية</span>
-        </button>
-
-        <button id="azkar" className={activePage === "azkar" ? "dock-active" : ""} onClick={() => switching('azkar')}>
-          <FontAwesomeIcon icon={faStarAndCrescent} className="size-[1.2em]" />
-            <span className="dock-label">الأذكار</span>
-        </button>
-        <button className={activePage === "quran" ? "dock-active" : ""} id="quran" onClick={() => switching('quran')}>
-          <FontAwesomeIcon icon={faBookQuran} className="size-[1.2em]" />
-            <span className="dock-label">القرآن الكريم</span>
-        </button>
-
-
-        <button id="ai" className={activePage === "ai" ? "dock-active" : ""} onClick={() => switching('ai')}>
-          <FontAwesomeIcon icon={faCommentDots} className="size-[1.2em]" />
-            <span className="dock-label">الذكاء الاصطناعي</span>
-        </button>
+          <DocsLinks name='home' label='الرئيسية' icon={faHome} />
+          <DocsLinks name='azkar' label='الأزكار' icon={faStarAndCrescent} />
+          <DocsLinks name='quran' label='القران الكريم' icon={faBookQuran} />
+          <DocsLinks name='ai' label='الذكاء الصطناعي' icon={faCommentDots} />
       </div>
       </PwaOnly>
 
