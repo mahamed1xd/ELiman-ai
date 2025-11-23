@@ -12,6 +12,7 @@ export default function Hadiths() {
     const [book, setBook] = useState("")
     const [method, setMethod] = useState("")
     const handleSearch = () => {
+      document.getElementById('my_modal_2').showModal();
         console.log(method);
         setLoading(true);
         if (method === "hadithNumber") {
@@ -122,16 +123,40 @@ export default function Hadiths() {
     </div>
   </div>
 
-<div id="hadithsContainer" className="w-[90%] md:w-[80%] lg:w-[70%] bg-base-100 shadow-md rounded-xl p-4 space-y-4 overflow-y-scroll">
-{hadiths ? hadiths.map((hadith) => (
+        {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+
+
+
+
+        <dialog id="my_modal_2" className="modal">
+          <div className="modal-box">
+            {hadiths ? (hadiths.length > 0) ? hadiths.map((hadith) => (
   <div className="flex flex-col gap-2 p-2 border mt-3 rounded-lg border-base-200" key={hadith.id}>
-    <p>{hadith.hadithArabic} الحديث :</p>
-    <p>{hadith.hadithEnglish} الحديث الإنجليزي :</p>
-    <p>{hadith.hadithNumber} رقم الحديث :</p>
-    <p>{hadith.book.bookName} الكتاب :</p>
-  </div>
-)) : <p>لا يوجد نتائج</p>}
-</div>
+                <div>
+                  <p className="direction-rtl">{hadith.hadithArabic}</p>
+                </div>
+                <div className="divider"></div>
+                <div className="collapse collapse-arrow bg-base-100 border border-base-300">
+                  <input type="checkbox" name="my-accordion-2" />
+                  <div className="collapse-title font-semibold">الحديث باللغة الانجليزية</div>
+                  <div className="collapse-content text-sm">
+                    <p className="direction-ltr">{hadith.hadithEnglish}</p>
+                  </div>
+                </div>
+                <div className="divider"></div>
+                <p className="direction-rtl">رقم الحديث : {hadith.hadithNumber}</p>
+                <p className="direction-rtl">الكتاب : {hadith.book.bookName}</p>
+              </div>
+            )) : <Loader />
+              : <p>لا يوجد نتائج</p>}
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+
 
 </div>
 

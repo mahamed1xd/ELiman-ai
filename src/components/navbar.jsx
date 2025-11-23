@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, memo } from "react";
 import { useAuth } from "@/context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faUser, faCog, faSignOutAlt, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
 import PwaOnly from "./pwaprov";
 
 
@@ -44,6 +44,7 @@ export default function NavbarComponent() {
     else if (path.startsWith("/azkar")) setActivePage("azkar");
     else if (path.startsWith("/settings")) setActivePage("settings");
     else if (path.startsWith("/profile")) setActivePage("profile");
+    else if (path.startsWith("/hadiths")) setActivePage("hadiths");
     else if (path.startsWith("/admin/dashboard")) setActivePage("admin");
     else setActivePage("home");
   }, [path]);
@@ -58,7 +59,8 @@ export default function NavbarComponent() {
             page === "azkar" ? "/azkar" :
               page === "settings" ? "/settings" :
                 page === "profile" ? "/profile" :
-                  page === "admin" ? "/admin/dashboard" : "/"
+                  page === "hadiths" ? "/hadiths" :
+                    page === "admin" ? "/admin/dashboard" : "/"
     );
   }
 
@@ -149,6 +151,7 @@ export default function NavbarComponent() {
                 <LargeMenuLinks name='ai' label='الذكاء الصطناعي' />
                 <LargeMenuLinks name='azkar' label='الأذكار' />
                 <LargeMenuLinks name='quran' label='القران الكريم' />
+                <LargeMenuLinks name='hadiths' label='الأحاديث الشريفة' />
                 <LargeMenuLinks name='home' label='الصفحة الرئيسية' />
           </ul>
           </div>
@@ -193,6 +196,7 @@ export default function NavbarComponent() {
             {/* Sidebar content here */}
             <SidebarLinks name='home' icon={faHome} label='الصفحة الرئيسية' />
             <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
+            <SidebarLinks name='hadiths' icon={faBook} label='الأحاديث الشريفة' />
             <SidebarLinks name='quran' icon={faBookQuran} label='القران الكريم' />
             <SidebarLinks name='ai' icon={faCommentDots} label='الذكاء الاصطناعي' />
           </ul>
@@ -209,6 +213,7 @@ export default function NavbarComponent() {
           <DocsLinks name='home' label='الرئيسية' icon={faHome} />
           <DocsLinks name='azkar' label='الأزكار' icon={faStarAndCrescent} />
           <DocsLinks name='quran' label='القران الكريم' icon={faBookQuran} />
+          <DocsLinks name='hadiths' label='الأحاديث الشريفة' icon={faBook} />
           <DocsLinks name='ai' label='الذكاء الصطناعي' icon={faCommentDots} />
       </div>
       </PwaOnly>
