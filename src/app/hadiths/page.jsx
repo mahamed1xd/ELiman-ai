@@ -132,7 +132,7 @@ export default function Hadiths() {
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box h-[85%] justify-center">
             {hadiths ? loading ? <Loader /> : (hadiths.length > 0) ? hadiths.map((hadith) => (
-  <div className="flex flex-col gap-2 p-2 border mt-3 rounded-lg border-base-200" key={hadith.id}>
+              <div className="flex flex-col gap-2 p-2 mt-3 rounded-lg border-2 border-accent hover:border-accent-content hover:scale-105 duration-300 hover:bg-base-200" key={hadith.id}>
                 <div>
                   <p className="direction-rtl">{hadith.hadithArabic}</p>
                 </div>
