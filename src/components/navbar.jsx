@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, memo } from "react";
 import { useAuth } from "@/context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faRadio, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
 import PwaOnly from "./pwaprov";
 
 
@@ -45,6 +45,7 @@ export default function NavbarComponent() {
     else if (path.startsWith("/settings")) setActivePage("settings");
     else if (path.startsWith("/profile")) setActivePage("profile");
     else if (path.startsWith("/hadiths")) setActivePage("hadiths");
+    else if (path.startsWith("/radio")) setActivePage("radio");
     else if (path.startsWith("/admin/dashboard")) setActivePage("admin");
     else setActivePage("home");
   }, [path]);
@@ -59,6 +60,7 @@ export default function NavbarComponent() {
             page === "azkar" ? "/azkar" :
               page === "settings" ? "/settings" :
                 page === "profile" ? "/profile" :
+                  page === "radio" ? "/radio" :
                   page === "hadiths" ? "/hadiths" :
                     page === "admin" ? "/admin/dashboard" : "/"
     );
@@ -152,6 +154,7 @@ export default function NavbarComponent() {
                 <LargeMenuLinks name='azkar' label='الأذكار' />
                 <LargeMenuLinks name='quran' label='القران الكريم' />
                 <LargeMenuLinks name='hadiths' label='الأحاديث الشريفة' />
+                <LargeMenuLinks name='radio' label='الراديو' />
                 <LargeMenuLinks name='home' label='الصفحة الرئيسية' />
           </ul>
           </div>
@@ -198,6 +201,7 @@ export default function NavbarComponent() {
             <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
             <SidebarLinks name='hadiths' icon={faBook} label='الأحاديث الشريفة' />
             <SidebarLinks name='quran' icon={faBookQuran} label='القران الكريم' />
+            <SidebarLinks name='radio' icon={faRadio} label='الراديو' />
             <SidebarLinks name='ai' icon={faCommentDots} label='الذكاء الاصطناعي' />
           </ul>
         </div>
