@@ -1,5 +1,11 @@
 "use client"
 
+export default function Test() {
+return (
+<>
+<h1>test page</h1> 
+{/*"use client"
+
 import { useEffect, useRef, useState } from "react";
 import Awesomplete from "awesomplete";
 import "awesomplete/awesomplete.css";
@@ -62,4 +68,8 @@ export default function RadioSearch() {
       )}
     </div>
   );
+}
+ */}
+</>
+)
 }
