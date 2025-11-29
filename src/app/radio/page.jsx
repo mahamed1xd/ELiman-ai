@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Radio() {
     const [name, setName] = useState("");
     const [radios, setRadios] = useState([]);
     const [radio, setRadio] = useState(null);
-
     useEffect(() => {
     async function fetchData() {
         const res = await fetch("https://data-rosy.vercel.app/radio.json");
@@ -20,6 +20,10 @@ export default function Radio() {
         const found = radios.find((r) =>
             r.name.toLowerCase().includes(name.toLowerCase())
         );
+        if (!found) {
+            toast.error("لا توجد إذاعة بهذا الاسم");
+            return
+        }
         setRadio(found || null);
         setName(""); // إعادة تعيين الـ input
     };
@@ -48,10 +52,6 @@ export default function Radio() {
                 </datalist>
             </div>
 
-            {!radio && (
-                <p className="text-center text-error font-bold">لا توجد إذاعة بهذا الاسم</p>
-            )}
-
             {radio && radio.id != "19" && (
                 <div className="flex flex-col items-center border border-base-200 rounded-lg p-4 hover:border-primary hover:scale-105 mt-2 hover:bg-base-200 duration-300 hover:text-primary-content">
                     <img
@@ -79,6 +79,9 @@ export default function Radio() {
                     </audio>
                 </div>
             )}
+            <div className="alert alert-info alert-soft mt-3">
+                <span>اذا لم تعمل الاذاعة قم بٳعادة تحميل الصفحة</span>
+            </div>
         </div>
     );
 }
