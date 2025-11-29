@@ -7,54 +7,104 @@ import "@/css/hadith.css"
 
 export default function Hadiths() {
   const [loading, setLoading] = useState(false);
+  const [modalHadith, setModalHAdith] = useState({})
     const [hadiths, setHadiths] = useState([]);
+    const [sharhs, setSharhs] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [book, setBook] = useState("")
     const [method, setMethod] = useState("")
-    const handleSearch = () => {
-      document.getElementById('my_modal_2').showModal();
-        console.log(method);
-        setLoading(true);
-        if (method === "hadithNumber") {
-            async function getHadithsByNumber() {
-                console.log(book);
+  // const handleSearch = () => {
+  //       console.log(method);
+  //       setLoading(true);
+  //       if (method === "hadithNumber") {
+  //           async function getHadithsByNumber() {
+  //               console.log(book);
                 
-                console.log("hadithNumber");
-                const res = await fetch(`/api/getHadiths?hadithNumber=${searchInput}&book=${book}`);
-                const data = await res.json();
-                console.log(data.data);
-                setHadiths(data.data);
-            }
-            getHadithsByNumber();
-            setLoading(false);
-                }
-        if (method === "hadithArabic") {
-            async function getHadithsByArabic() {
-                console.log("hadithArabic");
-                const res = await fetch(`/api/getHadiths?hadithArabic=${searchInput}`);
-                const data = await res.json();
-                console.log(data.data);
-                setHadiths(data.data);
-            }
-            getHadithsByArabic();
-            setLoading(false);
-        }
-        if (method === "hadithEnglish") {
-            async function getHadithsByEnglish() {
-                console.log("hadithEnglish");
-                const res = await fetch(`/api/getHadiths?hadithEnglish=${searchInput}`);
-                const data = await res.json();
-                console.log(data.data);
-                setHadiths(data.data);
-            }
-            getHadithsByEnglish();
-            setLoading(false);
-        }
-        if (method === "") {
-            toast.error("no method selected");
-            setLoading(false);
-        }
+  //               console.log("hadithNumber");
+  //               const res = await fetch(`/api/getHadiths?hadithNumber=${searchInput}&book=${book}`);
+  //               const data = await res.json();
+  //               console.log(data.data);
+  //               setHadiths(data.data);
+  //           }
+  //           getHadithsByNumber();
+  //           setLoading(false);
+  //               }
+  //       if (method === "hadithArabic") {
+  //           async function getHadithsByArabic() {
+  //               console.log("hadithArabic");
+  //               const res = await fetch(`/api/getHadiths?hadithArabic=${searchInput}`);
+  //               const data = await res.json();
+  //               console.log(data.data);
+  //               setHadiths(data.data);
+  //           }
+  //           getHadithsByArabic();
+  //           setLoading(false);
+  //       }
+  //       if (method === "hadithEnglish") {
+  //           async function getHadithsByEnglish() {
+  //               console.log("hadithEnglish");
+  //               const res = await fetch(`/api/getHadiths?hadithEnglish=${searchInput}`);
+  //               const data = await res.json();
+  //               console.log(data.data);
+  //               setHadiths(data.data);
+  //           }
+  //           getHadithsByEnglish();
+  //           setLoading(false);
+  //       }
+  //       if (method === "") {
+  //           toast.error("no method selected");
+  //           setLoading(false);
+  //       }
+  //     document.getElementById('my_modal_2').showModal();
+
+  //   }
+
+  const handleSearch = () => {
+  const getHadiths = async () => {
+    try {
+      setLoading(true);
+
+      // 1. استلام الرد (الـ Response Object) - ده الظرف
+      const res = await fetch(`https://basera-dorar.vercel.app/v1/site/hadith/search?value=${searchInput}&st=p`);
+      
+      // 2. 🚨 التعديل الجذري: استنى لحد ما تقرأ البيانات اللي جوه الظرف كـ JSON
+      // السطر ده هو اللي بيفتح الـ Promise الثانية
+      const data = await res.json(); 
+      
+      
+      // 3. هنا الـ data بقت Object نظيف فيه البيانات (الأحاديث والشروحات)
+      console.log(data.data);
+      // 4. ممكن تستخدم data.data عشان تجيب المصفوفة مباشرة
+      const sharhResults = data.data; 
+      setHadiths(sharhResults)
+      // دلوقتي تقدر تعمل setResults(sharhResults)
+      
+    } catch (error) {
+      console.error('فشل في جلب البيانات:', error);
+      // ممكن تعرض رسالة للمستخدم هنا
+    } finally {
+      // الـ finally بتتنفذ سواء حصل خطأ أو لا
+      setLoading(false);
     }
+  };
+  getHadiths();
+};
+
+const getHadithInfo = async (hadith) => {
+  setLoading(true)
+  const res = await(await fetch(`https://basera-dorar.vercel.app${hadith.sharhMetadata.urlToGetSharh}`)).json()
+  const data = res.data
+  const sharh = data.sharhMetadata.sharh
+  const grade = data.grade
+  const hadithInfos = {...hadith,sharh,grade
+  }
+  setModalHAdith(hadithInfos)
+  setLoading(false)
+  console.log(hadithInfos);
+  
+  document.getElementById("hadithInfo").showModal()
+}
+
     return (
 <div className="flex flex-col items-center w-full py-6">
 
@@ -126,28 +176,66 @@ export default function Hadiths() {
         {/* Open the modal using document.getElementById('ID').showModal() method */}
 
 
+              <div className="w-[90%] shadow-2xl flex flex-col rounded-2xl bg-base-200 p-2 mt-2 overflow-y-scroll">
 
+                 {hadiths ? (hadiths.length > 0) ? hadiths.map((hadith) => (
+                  <div key={hadith.hadithId}>
+                  <div className="flex flex-row-reverse items-center justify-between">
+                    <p className="direction-rtl text-right text-xl line-clamp-1" id={`${hadith.numberOrPage}_p`} onClick={() => {
+                      document.getElementById(`${hadith.numberOrPage}_p`).classList.remove("line-clamp-1")
+                    }}>{hadith.hadith}</p>
+                    <button className="btn btn-primary mr-1" onClick={() => {getHadithInfo(hadith)}}>
+        {loading ? <Loader /> : "عرض"}
 
+                    </button>
+                  </div>
+                  <div className="divider"></div>
+                  </div>
+            )) :<p> لا يوجد نتائج </p> : <p>لا يوجد نتائج</p>}
 
-        <dialog id="my_modal_2" className="modal">
+              </div>
+
+<dialog id="hadithInfo" className="modal">
+<div className="modal-box w-[90%]">
+  {(modalHadith != {}) && <>
+  <div className="grid grid-cols-1 gap-2 text-right text-lg text-base-content">
+    <p className="p-4 bg-base-200 rounded-2xl text-base-content text-xl direction-rtl text-right">{modalHadith.hadith}</p>
+    <div className="divider my-0.5"></div>
+    <p>خلاصة الحكم : <span className="text-primary">{modalHadith.explainGrade}</span></p>
+    <div>
+      <p>الراوي : <span className="text-primary">{modalHadith.rawi}</span> | المحدث : <span className="text-primary">{modalHadith.mohdith}</span> | المصدر : <span className="text-primary">{modalHadith.book}</span> | الصفحة أو الرقم : <span className="text-primary">{modalHadith.numberOrPage}</span></p> <br />
+      <p>التخريج : <span className="text-primary">{modalHadith.grade}</span></p>
+    </div>
+    <div className="divider my-0.5"></div>
+    <p>{modalHadith.sharh}</p>
+    </div>
+    </>}
+</div>
+<form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+</dialog>
+
+        {/* <dialog id="my_modal_2" className="modal">
           <div className="modal-box h-[85%] justify-center">
             {hadiths ? loading ? <Loader /> : (hadiths.length > 0) ? hadiths.map((hadith) => (
-              <div className="flex flex-col gap-2 p-2 mt-3 rounded-lg border-2 border-accent hover:border-accent-content hover:scale-105 duration-300 hover:bg-base-200" key={hadith.id}>
+              <div className="flex flex-col gap-2 p-2 mt-3 rounded-lg border-2 border-accent hover:border-accent-content hover:scale-105 duration-300 hover:bg-base-200" key={hadith.sharhMetadata.id}>
                 <div>
-                  <p className="direction-rtl">{hadith.hadithArabic}</p>
+                  <p className="direction-rtl">{hadith.hadith}</p>
                 </div>
                 <div className="divider"></div>
                 <div className="collapse collapse-arrow bg-base-100 border border-base-300">
                   <input type="checkbox" name="my-accordion-2" />
-                  <div className="collapse-title font-semibold">الحديث باللغة الانجليزية</div>
+                  <div className="collapse-title font-semibold">شرح الحديث</div>
                   <div className="collapse-content text-sm">
-                    <p className="direction-ltr">{hadith.hadithEnglish}</p>
+                    <p className="direction-rtl">{hadith.sharhMetadata.sharh}</p>
                   </div>
                 </div>
                 <div className="divider"></div>
                 <p className="direction-rtl">رقم الحديث : {hadith.hadithNumber}</p>
                 <p className="direction-rtl">الكتاب : {hadith.book.bookName}</p>
               </div>
+
             )) : <Loader />
               : <p>لا يوجد نتائج</p>}
           </div>
@@ -155,7 +243,7 @@ export default function Hadiths() {
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
           </form>
-        </dialog>
+        </dialog> */}
 
 
 </div>

@@ -20,6 +20,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "aos": "^2.3.4",
     "auth": "^1.0.2",
+    "awesomplete": "^1.1.7",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "botid": "^1.5.10",
