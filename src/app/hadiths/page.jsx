@@ -11,7 +11,9 @@ export default function Hadiths() {
     const [hadiths, setHadiths] = useState([]);
     const [sharhs, setSharhs] = useState([]);
     const [searchInput, setSearchInput] = useState("");
-    const [book, setBook] = useState("")
+  const [books, setBooks] = useState()
+  const [book, setBook] = useState("")
+  const [grade, setGrade] = useState("")
     const [method, setMethod] = useState("")
   // const handleSearch = () => {
   //       console.log(method);
@@ -58,14 +60,35 @@ export default function Hadiths() {
   //     document.getElementById('my_modal_2').showModal();
 
   //   }
+  useEffect(() => {
+    const isBooks = localStorage.getItem("hadithbooks")
+    if (!isBooks) {
+      const getBooks = async () => {
+        const res = await fetch("https://basera-dorar.vercel.app/v1/data/book")
+        const data = await res.json()
+        setBooks(data.data)
+        localStorage.setItem("hadithbooks", JSON.stringify(data.data))
 
+      }
+      getBooks()
+    } else {
+      setBooks(JSON.parse(isBooks))
+      console.log(JSON.parse(isBooks)[7].value);
+
+    }
+  }, [])
   const handleSearch = () => {
+    if (!searchInput) {
+      toast.error("البحث فارغ");
+      return
+    }
   const getHadiths = async () => {
     try {
       setLoading(true);
 
       // 1. استلام الرد (الـ Response Object) - ده الظرف
-      const res = await fetch(`https://basera-dorar.vercel.app/v1/site/hadith/search?value=${searchInput}&st=p`);
+      const res = await fetch(`https://basera-dorar.vercel.app/v1/site/hadith/search?value=${searchInput}&st=p&s[]=${book}&d[]=${grade}`);
+      console.log(res)
       
       // 2. 🚨 التعديل الجذري: استنى لحد ما تقرأ البيانات اللي جوه الظرف كـ JSON
       // السطر ده هو اللي بيفتح الـ Promise الثانية
@@ -122,44 +145,44 @@ const getHadithInfo = async (hadith) => {
       <input
         type="text"
         id="hadithNumber"
-        placeholder="أدخل رقم الحديث أو نص الحديث"
+              placeholder="أدخل نص الحديث"
         onChange={(e) => setSearchInput(e.target.value)}
         className="input input-bordered w-full rounded-lg"
       />
 
       {/* طريقة البحث */}
-      <div className="flex flex-row gap-2">
-      <select
-        name="method"
-        id="method"
-        onChange={(e) => setMethod(e.target.value)}
-        className="select select-bordered w-full rounded-lg"
-      >
-        <option value="">اختر طريقة البحث</option>
-        <option value="hadithNumber">حسب رقم</option>
-        <option value="hadithArabic">حسب النص العربي</option>
-        <option value="hadithEnglish">حسب النص الإنجليزي</option>
-      </select>
-
-      {/* الكتاب */}
-      <select
-        name="book"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {/* الكتاب */}
+              {books ? (
+                <div>
+                  <input list="books" name="book"
         id="book"
         onChange={(e) => setBook(e.target.value)}
-        className="select select-bordered w-full rounded-lg"
-      >
-        <option value="">اختر الكتاب</option>
-        <option value="">كل الكتب</option>
-        <option value="sahih-bukhari">صحيح البخاري</option>
-        <option value="sahih-muslim">صحيح مسلم</option>
-        <option value="al-tirmidhi">جامع الترمذي</option>
-        <option value="abu-dawood">سنن أبي داود</option>
-        <option value="ibn-e-majah">سنن ابن ماجه</option>
-        <option value="sunan-nasai">سنن النسائي</option>
-        <option value="mishkat">مشكاة المصابيح</option>
-        <option value="musnad-ahmad">مسند أحمد</option>
-        <option value="al-silsila-sahiha">السلسلة الصحيحة</option>
-      </select>
+                    className="input input-bordered w-full rounded-lg"
+                    placeholder="اختر الكتاب"
+                  />
+                  <datalist id="books" className="bg-primary">
+                    {books.map((book) => (
+                      <option key={book.key} value={book.key}>{book.value}</option>
+                    ))
+                    }
+                  </datalist>
+                </div>
+              ) : null}
+              {/* صحة الحديث */}
+              <select
+                name="grade"
+                id="grade"
+                onChange={(e) => setGrade(e.target.value)}
+                className="select select-bordered w-full rounded-lg overflow-y-auto"
+              >
+                <option value="">اختر صحة الحديث</option>
+                <option value="0">الكل</option>
+                <option value="1">صحيح</option>
+                <option value="2">صحيح السند</option>
+                <option value="3">ضعيف</option>
+                <option value="4">ضعيف السند</option>
+              </select>
       </div>
       {/* زر البحث */}
       <button
@@ -176,7 +199,7 @@ const getHadithInfo = async (hadith) => {
         {/* Open the modal using document.getElementById('ID').showModal() method */}
 
 
-              <div className="w-[90%] shadow-2xl flex flex-col rounded-2xl bg-base-200 p-2 mt-2 overflow-y-scroll">
+        <div className="w-[90%] shadow-2xl flex flex-col rounded-2xl bg-base-200 p-2 mt-2 overflow-y-auto">
 
                  {hadiths ? (hadiths.length > 0) ? hadiths.map((hadith) => (
                   <div key={hadith.hadithId}>
@@ -191,7 +214,7 @@ const getHadithInfo = async (hadith) => {
                   </div>
                   <div className="divider"></div>
                   </div>
-            )) :<p> لا يوجد نتائج </p> : <p>لا يوجد نتائج</p>}
+                 )) : <p>  </p> : <p>لا يوجد نتائج</p>}
 
               </div>
 
