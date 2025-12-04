@@ -1,33 +1,41 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import JWT from "jsonwebtoken"
 
 export default function AdminGuard({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const token = localStorage.getItem("token");
+  console.log(JWT.decode(token));
 
   useEffect(() => {
     const checkAdmin = async () => {
-      const token = localStorage.getItem("token");
-
       if (!token) {
         router.push("/login");
         return;
       }
 
       try {
-        const res = await axios.get("/api/check", {
+        const res = await fetch("/api/check", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        
-        if (res.data.user.role !== "admin") {
+        const data = await res.json();
+        console.log(data.user);
+
+
+        if (data.user.role !== "admin") {
           router.push("/notAllowed"); // صفحة رفض الدخول
+          setLoading(false)
         } else {
           setLoading(false);
         }
       } catch (err) {
-        router.push("/login");
+        console.error(err);
+
+      }
+      finally {
+
       }
     };
 

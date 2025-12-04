@@ -32,23 +32,21 @@ export async function POST(req) {
 
     console.log(user);
     
-
+    const Uimage = user.image; 
     const token = jwt.sign(
       {
         name: user.name,
         id: user._id,
         email: user.email,
         role: user.role,
-        image: user.image,
         createdAt: user.createdAt,
       },
       secret,
-      { expiresIn: "1d" }
     );
 
     console.log("✅ Token created");
 
-    return NextResponse.json({ message: "تم تسجيل الدخول بنجاح", token, user }, { status: 200 });
+    return NextResponse.json({ message: "تم تسجيل الدخول بنجاح", token, Uimage, user }, { status: 200 });
   } catch (error) {
     console.error("❌ Server error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

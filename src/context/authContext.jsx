@@ -11,12 +11,13 @@ export function AuthProvider({ children }) {
   // 🟢 استرجاع بيانات المستخدم من localStorage عند تحميل الصفحة
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = jwt.decode(token);
-    console.log(user);
+    let user = jwt.decode(token);
 
     if (user) {
       setUser(user);
-
+      if (!user.image) {
+        user.image = localStorage.getItem('image') || localStorage.getItem('profileImage')
+      }
     }
   }, []);
 
@@ -35,6 +36,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem('image')
   };
 
   return (

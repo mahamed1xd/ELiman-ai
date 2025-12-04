@@ -29,9 +29,11 @@ export default function LoginPage() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("loggedIn", "true");
+      console.log(res.data.Uimage);
 
       await setUser({ name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.image });
-      localStorage.setItem("user", { name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.user.image || 'dgdgd' })
+      localStorage.setItem("user", { name: res.data.user.name, role: res.data.user.role, email: res.data.user.email })
+      localStorage.setItem("image", res.data.Uimage)
 
 
       toast.success(`تم تسجيل الدخول بنجاح (${res.data.user.role}) ✅`, {

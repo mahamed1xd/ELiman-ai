@@ -10,6 +10,7 @@ import PwaOnly from "./pwaprov";
 
 export default function NavbarComponent() {
 
+  const [User, setUser] = useState()
   const router = useRouter();
   const [scrollProgress, setScrollProgress] = useState(0);
   const path = usePathname()
@@ -91,7 +92,15 @@ export default function NavbarComponent() {
   }, [scrollProgress])
 
 
-  const { user, logout } = useAuth();
+  let { user, logout } = useAuth();
+  const userImage = localStorage.getItem("image")
+  // setUser({ ...user, image: userImage })
+  if (user) {
+    if (user.image == null) {
+      user.image = localStorage.getItem("image") || localStorage.getItem("profileImage")
+    }
+  }
+  console.log(user);
 
   const [loggedIn, setLoggedIn] = useState(null);
   const [role, setRole] = useState(null);

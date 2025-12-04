@@ -9,6 +9,7 @@ import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next"
 import ThemeProvider from "@/components/themeprov";
+
 export const metadata = {
   title: "Basera Ai",
   description: "An app for all Muslims",

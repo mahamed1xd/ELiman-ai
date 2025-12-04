@@ -1,7 +1,7 @@
-import { NextRequest,NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-export async function GET(req) {
+export function GET(req) {
     const secret = process.env.JWT_SECRET;
     const auth = req.headers.get('Authorization');
     if (!auth || !auth.startsWith('Bearer ')) {

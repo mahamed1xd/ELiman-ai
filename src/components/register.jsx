@@ -115,7 +115,7 @@ export default function RegisterPage() {
                 </fieldset>
                 <select onChange={(e) => setRole(e.target.value)} name="role" defaultValue="Pick a text editor" className="select w-full">
                     <option disabled={true}>Pick a role</option>
-                    <option value="user"></option>
+                    <option value="user">مستخدم</option>
             <option value="admin">مشرف</option>
         </select>
 

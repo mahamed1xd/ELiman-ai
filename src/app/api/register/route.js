@@ -34,13 +34,13 @@ export async function POST(req) {
         await newUser.save();
 
         // login داخلي بعد التسجيل
+        const Uimage = newUser.image
         const token = jwt.sign(
             {
                 name: newUser.name,
                 id: newUser._id,
                 email: newUser.email,
                 role: newUser.role,
-                image: newUser.image,
                 createdAt: newUser.createdAt,
             },
             secret,
