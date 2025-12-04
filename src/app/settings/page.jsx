@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { useTheme } from "@/components/themeprov";
+import { useTheme } from "@/app/components/themeprov";
 
 export default function Settings() {
   const { theme, changeTheme } = useTheme();

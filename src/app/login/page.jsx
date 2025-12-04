@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
-import RegisterPage from "@/components/register";
+import RegisterPage from "@/app/components/register";
 import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
-import Loader from "@/components/loader";
+import Loader from "@/app/components/loader";
 import { useLoading } from "@/context/loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faEyeSlash, faKey } from "@fortawesome/free-solid-svg-icons";
@@ -29,7 +29,6 @@ export default function LoginPage() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("loggedIn", "true");
-      console.log(res.data.Uimage);
 
       await setUser({ name: res.data.user.name, role: res.data.user.role, email: res.data.user.email, image: res.data.image });
       localStorage.setItem("user", { name: res.data.user.name, role: res.data.user.role, email: res.data.user.email })

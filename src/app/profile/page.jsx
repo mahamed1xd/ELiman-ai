@@ -1,7 +1,7 @@
 "use client";
 import jwt from "jsonwebtoken";
 import { useEffect, useState } from "react";
-import Skeleton from "@/components/skeleton";
+import Skeleton from "@/app/components/skeleton";
 
 export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
@@ -11,9 +11,7 @@ export default function ProfilePage() {
     setLoading(true);
     const token = localStorage.getItem("token");
     if (token) {
-      const decoded = jwt.decode(token);
-      console.log(decoded);
-      
+      const decoded = jwt.decode(token);     
       setUser(decoded);
     }
     setLoading(false);

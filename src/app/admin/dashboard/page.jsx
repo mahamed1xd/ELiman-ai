@@ -1,31 +1,35 @@
 "use client";
-import AdminGuard from "@/components/AdminGaurd";
-import connectToDatabase from "@/lib/mongodb";
-// import User from "@/models/user";
-import { useEffect } from "react";
+import AdminGuard from "@/app/components/AdminGaurd";
+import { useEffect, useState } from "react";
+import Loader from "@/app/components/loader";
 
 export default function AdminDashboardPage() {
-  // useEffect(() => {
-  //   console.log("hello conneting to database");
-
-  //   const fetchData = async () => {
-  //     try {
-  //       connectToDatabase();
-  //       console.log("connected to database");
-  //       const users = await User.find({});
-  //       console.log(users);
-  //     } catch (error) {
-  //       console.log("error connecting to database");
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [])
+  const [users, setUsers] = useState([])
+  const [loading, setloading] = useState(false)
+  useEffect(() => {
+    const getUsers = async () => {
+      setloading(true)
+      const res = await fetch('/api/admin/getUsers')
+      const data = await res.json()
+      console.log(data.users);
+      setUsers(data.users)
+      setloading(false)
+    }
+    getUsers()
+  }, [])
   return (
     <AdminGuard>
-      <div className="p-10">
-        <h1 className="text-3xl font-bold mb-5">لوحة تحكم المسؤول</h1>
-        <p>مرحبًا بك في لوحة تحكم المسؤول. هنا يمكنك إدارة التطبيق.</p>
+      <div className="w-full h-full">
+        {loading && <Loader />}
+        {!loading && <div>
+          {users.map((user, i) => {
+            return (
+              <>
+                <p key={i}>{user.name}</p> <br />
+              </>
+            )
+          })}
+        </div>}
       </div>
     </AdminGuard>
   );

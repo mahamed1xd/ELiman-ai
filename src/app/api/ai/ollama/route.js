@@ -11,12 +11,9 @@ let conversationHistory = [];
 async function getHadithFromAPI(query) {
   try {
     // مثال لو استخدمت Sunnah.com أو أي API آخر
-    // const response = await fetch(`https://api.sunnah.com/v1/hadiths/search/${encodeURIComponent(query)}`, {
-    //   headers: { "X-API-Key": process.env.SUNNAH_API_KEY },
-    // });
-    // const data = await response.json();
-    // return data.data?.[0] || null;
-    return null; // لحد ما تضيف API حقيقي
+    const response = await fetch(`https://basera-dorar.vercel.app/v1/site/hadith/search?value=${encodeURIComponent(query)}`);
+    const data = await response.json();
+    return data.data?.[0] || null;
   } catch (error) {
     console.error("حدث خطأ أثناء الاتصال بواجهة الحديث:", error);
     return null;
@@ -97,7 +94,6 @@ export async function POST(request) {
     });
 
     const text = await response.text();
-    console.log("Raw response:", text);
 
     let assistantReply = "⚠️ لم يصل رد من Ollama Cloud";
     try {

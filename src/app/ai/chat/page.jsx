@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useLoading } from "@/context/loading";
-import Loader from "@/components/loader";
+import Loader from "@/app/components/loader";
 
 export default function FaithfulChat() {
   const [messages, setMessages] = useState([]);
