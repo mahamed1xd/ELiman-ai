@@ -111,12 +111,12 @@ export default function adminUsersPage() {
     <div className="flex justify-center items-center">
       {(loading) ? <Loader /> : (
         <>
-          <div className="w-[95%] mt-2 rounded-2xl shadow-2xl mb-2 p-10 mx-auto bg-base-300">
+          <div className="w-[95%] mt-2 rounded-2xl mb-2 border-1 md:shadow md:p-10 overflow-x-auto mx-auto bg-base-300">
             <table className="table table-zebra w-full">
               {/* head */}
               <thead>
                 <tr>
-                  <th>الرقم</th>
+                  <th className="hidden md:block">الرقم</th>
                   <th>الاسم</th>
                   <th>البريد الإلكتروني</th>
                   <th>تاريخ التسجيل</th>
@@ -129,7 +129,7 @@ export default function adminUsersPage() {
                   {users.map((user, i) => {
                       return (
                         <tr key={i} className="hover:bg-primary hover:text-primary-content duration-500">
-                          <th>{i + 1}</th>
+                          <th className="hidden md:block">{i + 1}</th>
                           <td>{user.name}</td>
                           <td>{user.email}</td>
                           <td>{user.createdAt}</td>

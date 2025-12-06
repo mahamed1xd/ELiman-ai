@@ -198,7 +198,7 @@ export default function NavbarComponent() {
       </div>
         <div className="drawer-side z-100">
           <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-          <ul className="menu bg-base-200 min-h-full w-80 p-4 direction-rtl" >
+          <ul className="menu bg-base-200 min-h-full w-[75%] p-4 direction-rtl" >
             {/* Sidebar content here */}
             <SidebarLinks name='home' icon={faHome} label='الصفحة الرئيسية' />
             <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />

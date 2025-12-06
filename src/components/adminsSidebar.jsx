@@ -26,18 +26,21 @@ export default function AdminSidebar() {
     return (
       <li>
         <span
-          className={activePage === name ? "menu-active" : "hover:bg-base-200 duration-300"}
+          className={activePage === name ? "menu-active hidden md:block" : "hover:bg-base-200 duration-300 hidden md:block"}
           id={name}
           onClick={() => switching(name)}
         >
           <FontAwesomeIcon icon={icon} /> {label}
         </span>
+        <div className={activePage === name ? "menu-active block md:hidden tooltip tooltip-left" : "block md:hidden tooltip tooltip-left"} onClick={() => switching(name)} data-tip={label}>
+          <FontAwesomeIcon icon={icon} size="lg" />
+        </div>
       </li>
     );
   });
 
   return (
-    <div className="w-full h-full flex justify-end">
+    <div className="w-full h-full flex justify-end bg-base-100">
       <ul className="menu min-h-[90vh] w-56 border-l-2 gap-2 direction-rtl text-right border-base-200">
         <SideBarDock name="main" label="الرئيسية" icon={faShield} />
         <SideBarDock name="users" label="المستخدمين" icon={faUser} />
