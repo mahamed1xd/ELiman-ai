@@ -1,14 +1,14 @@
 import "./g.css";
 import 'aos/dist/aos.css';
-import Footer from "@/app/components/footer.jsx";
-import NavbarComponent from "@/app/components/navbar";
-import LoginCheck from "@/app/components/loginCheck";
+import Footer from "@/components/footer.jsx";
+import NavbarComponent from "@/components/navbar";
+import LoginCheck from "@/components/loginCheck";
 import { AuthProvider } from "@/context/authContext";
 import { LoadingProvider } from "@/context/loading";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next"
-import ThemeProvider from "@/app/components/themeprov";
+import ThemeProvider from "@/components/themeprov";
 
 export const metadata = {
   title: "Basera Ai",

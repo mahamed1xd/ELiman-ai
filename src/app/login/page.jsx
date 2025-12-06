@@ -2,10 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
-import RegisterPage from "@/app/components/register";
+import RegisterPage from "@/components/register";
 import { useAuth } from "@/context/authContext";
 import { toast } from "sonner";
-import Loader from "@/app/components/loader";
+import Loader from "@/components/loader";
 import { useLoading } from "@/context/loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faEyeSlash, faKey } from "@fortawesome/free-solid-svg-icons";
@@ -90,7 +90,7 @@ export default function LoginPage() {
 
         </form>
         <div className="mt-2 flex justify-evenly">
-          <button onClick={handleLogin} disabled={loading} className="bg-neutral hover:bg-accent duration-700 text-neutral-content hover:text-accent-content p-2 w-2/5 rounded">{loading ? <Loader /> : 'دخول'}</button>
+          <button onClick={handleLogin} disabled={loading} className="bg-neutral hover:bg-primary duration-700 text-neutral-content hover:text-primary-content p-2 w-2/5 rounded">{loading ? <Loader /> : 'دخول'}</button>
           <button className="btn w-2/5" onClick={() => document.getElementById('my_modal_5').showModal()}>انشاء حساب</button>
         </div>
 

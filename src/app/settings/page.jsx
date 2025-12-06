@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { useTheme } from "@/app/components/themeprov";
+import { useTheme } from "@/components/themeprov";
 
 export default function Settings() {
   const { theme, changeTheme } = useTheme();
@@ -19,8 +19,8 @@ export default function Settings() {
     "dracula", "business", "night", "coffee", "dim", "sunset"];
 
   return (
-    <div className="w-[85%] p-4 flex bg-base-200 shadow-2xl rounded">
-      <div className="flex flex-row-reverse items-center justify-between w-full">
+    <div className="w-[85%] p-4 flex bg-base-200 min-h-[80vh] shadow-2xl rounded">
+      <div className="flex flex-row-reverse justify-between w-full">
         <p className="text-base-content">اختار الشكل</p>
 
         <div className="dropdown">

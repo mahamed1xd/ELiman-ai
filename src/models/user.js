@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 let user = {
-    id: { type: String, default: () => new Date().getTime().toString() },
+    id: { type: String, default: () => new Date().getTime().toString(), unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef, Suspense } from "react";
 import { toast } from "sonner";
-import Loader from "@/app/components/loader";
+import Loader from "@/components/loader";
 import { Slice } from "lucide-react";
 
 export default function Quran() {

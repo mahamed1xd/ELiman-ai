@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-import Loader from "@/app/components/loader";
+import Loader from "@/components/loader";
 
 export default function ZikrPage() {
   const param = useParams();

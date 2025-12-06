@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios"
-import Loader from "@/app/components/loader"
+import Loader from "@/components/loader"
 import { useState, useEffect, use } from "react"
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";

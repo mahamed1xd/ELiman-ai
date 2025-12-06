@@ -2,11 +2,12 @@
 "use client"
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import Loader from "@/app/components/loader";
+import Loader from "@/components/loader";
 import "@/css/hadith.css"
 
 export default function Hadiths() {
   const [loading, setLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false)
   const [modalHadith, setModalHAdith] = useState({})
     const [hadiths, setHadiths] = useState([]);
     const [sharhs, setSharhs] = useState([]);
@@ -38,7 +39,7 @@ export default function Hadiths() {
     }
   const getHadiths = async () => {
     try {
-      setLoading(true);
+      setSearchLoading(true);
 
       // 1. استلام الرد (الـ Response Object) - ده الظرف
       const res = await fetch(`https://basera-dorar.vercel.app/v1/site/hadith/search?value=${searchInput}&st=p&s[]=${book}&d[]=${grade}`);
@@ -59,14 +60,15 @@ export default function Hadiths() {
       // ممكن تعرض رسالة للمستخدم هنا
     } finally {
       // الـ finally بتتنفذ سواء حصل خطأ أو لا
-      setLoading(false);
+      setSearchLoading(false);
     }
   };
   getHadiths();
 };
 
-const getHadithInfo = async (hadith) => {
-  setLoading(true)
+  const getHadithInfo = async (e, hadith) => {
+    setLoading(true)
+    e.target.innerHTML = "جاري التحميل"
   const res = await(await fetch(`https://basera-dorar.vercel.app${hadith.sharhMetadata.urlToGetSharh}`)).json()
   const data = res.data
   const sharh = data.sharhMetadata.sharh
@@ -74,8 +76,8 @@ const getHadithInfo = async (hadith) => {
   const hadithInfos = {...hadith,sharh,grade
   }
   setModalHAdith(hadithInfos)
-  setLoading(false)
-
+    e.target.innerHTML = "عرض"
+    setLoading(false)
   document.getElementById("hadithInfo").showModal()
 }
 
@@ -137,11 +139,11 @@ const getHadithInfo = async (hadith) => {
       </div>
       {/* زر البحث */}
       <button
-        disabled={loading}
+              disabled={searchLoading}
         onClick={handleSearch}
         className="btn btn-primary w-full rounded-lg"
       >
-        {loading ? <Loader /> : "بحث"}
+              {searchLoading ? <Loader /> : "بحث"}
       </button>
 
     </div>
@@ -154,16 +156,20 @@ const getHadithInfo = async (hadith) => {
 
                  {hadiths ? (hadiths.length > 0) ? hadiths.map((hadith) => (
                   <div key={hadith.hadithId}>
+                     <div div="flex flex-col items-center justify-between">
                   <div className="flex flex-row-reverse items-center justify-between">
-                    <p className="direction-rtl text-right text-xl line-clamp-1" id={`${hadith.numberOrPage}_p`} onClick={() => {
+                         <p className="direction-rtl text-right text-xl line-clamp-1 cursor-pointer" id={`${hadith.numberOrPage}_p`} onClick={() => {
                       document.getElementById(`${hadith.numberOrPage}_p`).classList.remove("line-clamp-1")
-                    }}>{hadith.hadith}</p>
-                    <button className="btn btn-primary mr-1" onClick={() => {getHadithInfo(hadith)}}>
-        {loading ? <Loader /> : "عرض"}
+                         }}>{hadith.hadith}</p>
 
+                         <button className="btn btn-primary mr-1" disabled={loading} onClick={(e) => { getHadithInfo(e, hadith) }}>
+                           عرض
                     </button>
-                  </div>
-                  <div className="divider"></div>
+                       </div>
+                       <p className="direction-rtl text-right text-sm"> المحدث : <span className="text-primary">{hadith.mohdith}</span> | رقم الحديث : <span className="text-primary">{hadith.numberOrPage}</span> </p>
+
+                     </div>
+                     <div className="divider my-1"></div>
                   </div>
                  )) : <p>  </p> : <p>لا يوجد نتائج</p>}
 

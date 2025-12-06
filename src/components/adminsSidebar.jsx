@@ -1,8 +1,7 @@
 'use client'
-
+import '@/css/admin.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShield } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState, memo } from "react";
 
@@ -39,7 +38,7 @@ export default function AdminSidebar() {
 
   return (
     <div className="w-full h-full flex justify-end">
-      <ul className="menu h-[90vh] w-56 border-l-2 gap-2 direction-rtl text-right border-base-200">
+      <ul className="menu min-h-[90vh] w-56 border-l-2 gap-2 direction-rtl text-right border-base-200">
         <SideBarDock name="main" label="الرئيسية" icon={faShield} />
         <SideBarDock name="users" label="المستخدمين" icon={faUser} />
       </ul>

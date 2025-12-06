@@ -35,6 +35,7 @@ export function AuthProvider({ children }) {
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem('image')
+    sessionStorage.clear()
   };
 
   return (

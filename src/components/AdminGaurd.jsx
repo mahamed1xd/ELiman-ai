@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import JWT from "jsonwebtoken"
 
 export default function AdminGuard({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const token = localStorage.getItem("token");
+  const isAdmin = sessionStorage.getItem('isAdmin')
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -14,7 +14,10 @@ export default function AdminGuard({ children }) {
         router.push("/login");
         return;
       }
-
+      if (isAdmin) {
+        setLoading(false)
+        return;
+      }
       try {
         const res = await fetch("/api/check", {
           headers: { Authorization: `Bearer ${token}` },
@@ -26,6 +29,7 @@ export default function AdminGuard({ children }) {
           router.push("/notAllowed"); // صفحة رفض الدخول
           setLoading(false)
         } else {
+          sessionStorage.setItem('isAdmin', true)
           setLoading(false);
         }
       } catch (err) {

@@ -1,7 +1,7 @@
 "use client";
 import jwt from "jsonwebtoken";
 import { useEffect, useState } from "react";
-import Skeleton from "@/app/components/skeleton";
+import Skeleton from "@/components/skeleton";
 
 export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
