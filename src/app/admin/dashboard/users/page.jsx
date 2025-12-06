@@ -111,7 +111,7 @@ export default function adminUsersPage() {
     <div className="flex justify-center items-center">
       {(loading) ? <Loader /> : (
         <>
-          <div className="w-[95%] mt-2 rounded-2xl mb-2 border-1 md:shadow md:p-10 overflow-x-auto mx-auto bg-base-300">
+          <div className="w-[95%] mt-2 rounded-2xl mb-2 border-2 border-base-300 shadow md:shadow-2xl md:p-10 overflow-x-auto mx-auto bg-base-200">
             <table className="table table-zebra w-full">
               {/* head */}
               <thead>
