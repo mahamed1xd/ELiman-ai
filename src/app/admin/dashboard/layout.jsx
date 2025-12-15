@@ -1,3 +1,5 @@
+"use client"
+
 import '@/css/admin.css'
 import AdminSidebar from "@/components/adminsSidebar"
 

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loader from "./loader"; 
 
 export default function AdminGuard({ children }) {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,7 @@ export default function AdminGuard({ children }) {
     const checkAdmin = async () => {
       if (!token) {
         router.push("/login");
+        setLoading(false)
         return;
       }
       if (isAdmin) {
@@ -34,7 +36,7 @@ export default function AdminGuard({ children }) {
         }
       } catch (err) {
         console.error(err);
-
+        setLoading(false)
       }
       finally {
 
@@ -44,7 +46,7 @@ export default function AdminGuard({ children }) {
     checkAdmin();
   }, []);
 
-  if (loading) return <p className="text-center mt-10">جاري التحقق...</p>;
+  if (loading) return <div className="min-h-[90vh] w-full flex justify-center items-center"><Loader /></div>;
 
   return children;
 }

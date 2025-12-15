@@ -28,7 +28,7 @@ export default function AdminDashboardPage() {
   return (
     <AdminGuard>
       <div className="w-full h-full">
-
+        <p>سيتم وضع الاحصائيات قريبا</p>
       </div>
     </AdminGuard>
   );

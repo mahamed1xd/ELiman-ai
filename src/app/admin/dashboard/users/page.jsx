@@ -109,7 +109,7 @@ export default function adminUsersPage() {
   }
   return (
     <div className="flex justify-center items-center">
-      {(loading) ? <Loader /> : (
+      {(loading) ? <div className="min-h-[90vh] w-full flex justify-center items-center"><Loader /></div> : (
         <>
           <div className="w-[95%] mt-2 rounded-2xl mb-2 border-2 border-base-300 shadow md:shadow-2xl md:p-10 overflow-x-auto mx-auto bg-base-200">
             <table className="table table-zebra w-full">
