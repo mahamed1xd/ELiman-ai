@@ -405,8 +405,13 @@ export default function AdminCourses() {
         <th className="hidden md:block">{index + 1}</th>
         <td>{course.name}</td>
         <td>{course.description}</td>
-        <td>{sections.filter((sec) => sec.name == course.section)[0].nameAr}</td>
-        <td>{catagories.filter((cat) => cat.name == course.catagory)[0].nameAr}</td>
+        <td>
+            {sections.find((sec) => sec.name === course.section)?.nameAr || "—"}
+        </td>
+
+        <td>
+            {catagories.find((cat) => cat.name === course.catagory)?.nameAr || "—"}
+        </td>
    <td>
                             <FontAwesomeIcon icon={faPenToSquare} onClick={() => showEditCourseModel(course)} className="cursor-pointer hover:scale-115 duration-300 hover:text-primary-content" />
                           </td>
@@ -445,7 +450,10 @@ export default function AdminCourses() {
         <td>{section.nameAr}</td>
         <td>{section.name}</td>
         <td>{section.description}</td>
-        <td>{catagories.filter((cat) => cat.name == section.catagory)[0].nameAr}</td>
+        <td>
+            {catagories.find((cat) => cat.name === section.catagory)?.nameAr || "—"}
+        </td>
+
            <td>
                             <FontAwesomeIcon icon={faPenToSquare} onClick={() => showEditSectionModel(section)} className="cursor-pointer hover:scale-115 duration-300 hover:text-primary-content" />
                           </td>
