@@ -7,6 +7,7 @@ import { Slice } from "lucide-react";
 export default function Quran() {
   const [surah, setSurah] = useState([]);
   const [ayat, setAyat] = useState([]);
+  const [audio, setAudio] = useState('');
   const [Sayat, setSayat] = useState([])
   const [loading, setLoading] = useState(true);
   const [loadingA, setLoadingA] = useState(false);
@@ -49,10 +50,19 @@ export default function Quran() {
 
     setLoadingA(true);
     try {
-      const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}`);
+      const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
       const json = await res.json();
       cache.current[num] = json.data.ayahs;
+      const SurahNum = json.data.number;
       setAyat(json.data.ayahs);
+      try {
+        const res = await fetch(`https://quranapi.pages.dev/api/audio/${SurahNum}.json`)
+        const json = await res.json()
+        setAudio(json[1]?.originalUrl)
+      } catch (err) {
+        console.error(err);
+        toast.error("حدث خطأ أثناء تحميل الآيات");
+      }
     } catch (err) {
       console.error(err);
       toast.error("حدث خطأ أثناء تحميل الآيات");
@@ -144,11 +154,19 @@ export default function Quran() {
             ) : (
               <Suspense fallback={<Loader />}>
                 <div dir="rtl" className="p-4 leading-loose text-lg md:text-2xl font-['quran']">
+                    {audio && (
+                      <audio controls className="w-[100%] md:w-[75%] lg:w-[50%] h-10 justify-self-center">
+                        <source src={audio} />
+                      </audio>
+                    )}
+                    <br />
+
                   {selectedSurah.number !== 9 && (
                     <h1 className="text-center text-lg md:text-2xl font-['quran'] mb-4">
                       بسم الله الرحمن الرحيم
                     </h1>
                   )}
+
                     {(Sayat?.length ? Sayat : ayat)?.map((ayah) => (
                     <span key={ayah.number} className="inline">
                       {ayah.text}
