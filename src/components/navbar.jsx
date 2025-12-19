@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, memo } from "react";
 import { useAuth } from "@/context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faCommentDots, faStarAndCrescent, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faRadio, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faCommentDots, faStarAndCrescent, faGraduationCap, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faRadio, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
 import PwaOnly from "./pwaprov";
 
 
@@ -62,6 +62,7 @@ export default function NavbarComponent() {
                 page === "profile" ? "/profile" :
                   page === "radio" ? "/radio" :
                   page === "hadiths" ? "/hadiths" :
+                      page === "courses" ? "/courses" :
                     page === "admin" ? "/admin/dashboard" : "/"
     );
   }
@@ -157,6 +158,7 @@ export default function NavbarComponent() {
                 <LargeMenuLinks name='azkar' label='الأذكار' />
                 <LargeMenuLinks name='quran' label='القران الكريم' />
                 <LargeMenuLinks name='hadiths' label='الأحاديث الشريفة' />
+                <LargeMenuLinks name='courses' label='الدروس' />
                 <LargeMenuLinks name='radio' label='الراديو' />
                 <LargeMenuLinks name='home' label='الصفحة الرئيسية' />
           </ul>
@@ -201,6 +203,7 @@ export default function NavbarComponent() {
           <ul className="menu bg-base-200 min-h-full w-[75%] p-4 direction-rtl" >
             {/* Sidebar content here */}
             <SidebarLinks name='home' icon={faHome} label='الصفحة الرئيسية' />
+            <SidebarLinks name='courses' icon={faGraduationCap} label='الدروس' />
             <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
             <SidebarLinks name='hadiths' icon={faBook} label='الأحاديث الشريفة' />
             <SidebarLinks name='quran' icon={faBookQuran} label='القران الكريم' />
@@ -218,7 +221,6 @@ export default function NavbarComponent() {
 
       <div className="dock bg-neutral lg:hidden bottom-[-1px] w-[101%] text-neutral-content">
           <DocsLinks name='home' label='الرئيسية' icon={faHome} />
-          <DocsLinks name='azkar' label='الأزكار' icon={faStarAndCrescent} />
           <DocsLinks name='quran' label='القران الكريم' icon={faBookQuran} />
           <DocsLinks name='hadiths' label='الأحاديث الشريفة' icon={faBook} />
           <DocsLinks name='ai' label='الذكاء الصطناعي' icon={faCommentDots} />
