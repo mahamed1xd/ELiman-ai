@@ -26,12 +26,12 @@ export default function NavbarComponent() {
   });
   const LargeMenuLinks = memo(function SectionCard({ name, label }) {
     return (
-      <li> <span onClick={() => switching(name)} className={activePage === `${name}` ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"}>{label} </span> </li>
+      <li> <span onClick={() => switching(name)} className={activePage == `${name}` ? "bg-primary text-primary-content font-[ar2] mx-1" : "hover:bg-primary hover:text-primary-content duration-400 text-base-content font-[ar2] mx-1"}>{label} </span> </li>
     );
   });
   const SidebarLinks = memo(function SectionCard({ name, label, icon }) {
     return (
-      <li><span onClick={() => switching(name)} className={activePage === name ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={icon} className="size-[1.2em]" />{label}</span></li>
+      <li><span onClick={() => switching(name)} className={activePage == name ? "bg-primary text-primary-content font-[ar2] my-1" : "active:bg-primary active:text-primary-content duration-400 text-base-content font-[ar2] my-1"}><FontAwesomeIcon icon={icon} className="size-[1.2em]" />{label}</span></li>
 
     );
   });
@@ -44,6 +44,7 @@ export default function NavbarComponent() {
     else if (path.startsWith("/azkar")) setActivePage("azkar");
     else if (path.startsWith("/settings")) setActivePage("settings");
     else if (path.startsWith("/profile")) setActivePage("profile");
+    else if (path.startsWith("/courses")) setActivePage("courses");
     else if (path.startsWith("/hadiths")) setActivePage("hadiths");
     else if (path.startsWith("/radio")) setActivePage("radio");
     else if (path.startsWith("/admin/dashboard")) setActivePage("admin");
@@ -52,19 +53,19 @@ export default function NavbarComponent() {
 
 
   function switching(page) {
-    setActivePage(page);
     router.push(
-      page === "home" ? "/" :
-        page === "ai" ? "/ai/chat" :
-          page === "quran" ? "/quran" :
-            page === "azkar" ? "/azkar" :
-              page === "settings" ? "/settings" :
-                page === "profile" ? "/profile" :
-                  page === "radio" ? "/radio" :
-                  page === "hadiths" ? "/hadiths" :
-                      page === "courses" ? "/courses" :
-                    page === "admin" ? "/admin/dashboard" : "/"
+      page == "home" ? "/" :
+        page == "ai" ? "/ai/chat" :
+          page == "quran" ? "/quran" :
+            page == "azkar" ? "/azkar" :
+              page == "courses" ? "/courses" :
+                page == "settings" ? "/settings" :
+                  page == "profile" ? "/profile" :
+                    page == "radio" ? "/radio" :
+                      page == "hadiths" ? "/hadiths" :
+                        page == "admin" ? "/admin/dashboard" : "/"
     );
+    setActivePage(page);
   }
 
 
@@ -155,11 +156,11 @@ export default function NavbarComponent() {
           <div className="hidden lg:justify-between lg:flex">
             <ul className="menu menu-horizontal flex-row-reverse px-1">
                 <LargeMenuLinks name='ai' label='الذكاء الصطناعي' />
-                <LargeMenuLinks name='azkar' label='الأذكار' />
-                <LargeMenuLinks name='quran' label='القران الكريم' />
-                <LargeMenuLinks name='hadiths' label='الأحاديث الشريفة' />
-                <LargeMenuLinks name='courses' label='الدروس' />
                 <LargeMenuLinks name='radio' label='الراديو' />
+                <LargeMenuLinks name='courses' label='الدروس' />
+                <LargeMenuLinks name='azkar' label='الأذكار' />
+                <LargeMenuLinks name='hadiths' label='الأحاديث الشريفة' />
+                <LargeMenuLinks name='quran' label='القران الكريم' />
                 <LargeMenuLinks name='home' label='الصفحة الرئيسية' />
           </ul>
           </div>
@@ -203,10 +204,10 @@ export default function NavbarComponent() {
           <ul className="menu bg-base-200 min-h-full w-[75%] p-4 direction-rtl" >
             {/* Sidebar content here */}
             <SidebarLinks name='home' icon={faHome} label='الصفحة الرئيسية' />
-            <SidebarLinks name='courses' icon={faGraduationCap} label='الدروس' />
-            <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
-            <SidebarLinks name='hadiths' icon={faBook} label='الأحاديث الشريفة' />
             <SidebarLinks name='quran' icon={faBookQuran} label='القران الكريم' />
+            <SidebarLinks name='hadiths' icon={faBook} label='الأحاديث الشريفة' />
+            <SidebarLinks name='azkar' icon={faStarAndCrescent} label='الأذكار' />
+            <SidebarLinks name='courses' icon={faGraduationCap} label='الدروس' />
             <SidebarLinks name='radio' icon={faRadio} label='الراديو' />
             <SidebarLinks name='ai' icon={faCommentDots} label='الذكاء الاصطناعي' />
           </ul>

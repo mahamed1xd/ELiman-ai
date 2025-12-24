@@ -4,7 +4,7 @@ import "@/css/main.css";
 import { useEffect, useState, memo } from "react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuran, faHeart, faBrain } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faBrain, faStarAndCrescent, faGraduationCap, faBookQuran, faBook, faUser, faCog, faSignOutAlt, faRadio, faUserShield, faBars } from "@fortawesome/free-solid-svg-icons";
 import Aos from "aos";
 
 // 🔥 Component: Section Card (Optimized)
@@ -13,10 +13,10 @@ const SectionCard = memo(function SectionCard({ title, desc, link, icon, eff }) 
 
   return (
     <div
-      className="w-full h-96 grid font-[ar3] text-right direction-rtl place-content-center"
+      className="w-full my-auto h-96 grid font-[ar3] text-right direction-rtl place-content-center"
       data-aos={eff || "fade-in"} // استخدام effect لكل كارت
     >
-      <div className="card w-[100%] mx-auto hover:scale-[1.02] duration-300 transition-all bg-base-100 border-2 border-primary rounded-xl shadow-xl shadow-base-300/30">
+      <div className="card w-70 h-96 md:w-80 md:h-80 mx-auto hover:scale-[1.02] duration-300 transition-all bg-base-100 border-2 border-primary rounded-xl shadow-xl shadow-base-300/30">
         <span className="w-20 h-20 flex items-center mx-auto mt-2 justify-center rounded-full bg-primary text-primary-content p-4">
           <FontAwesomeIcon icon={icon} size="2xl" />
         </span>
@@ -90,12 +90,18 @@ export default function HomePage() {
         <section id="sec2" className="bg-base-100 w-full min-h-screen">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-8 w-full gap-6 py-10">
             <SectionCard
-              title="علوم القرآن"
-              desc="كل ما يتعلق بعلوم القرآن في مكان واحد."
+            title="القرآن الكريم"
+            desc="كل ما يتعلق القرآن في مكان واحد."
               link="/quran"
-            icon={faQuran}
-            />
-            <SectionCard
+            icon={faBookQuran}
+          />
+          <SectionCard
+            title="الأ حاديث النبوية"
+            desc="مكتبة كبيرة من الأحاديث النبوية و الأحاديث القدسية"
+            link="/hadiths"
+            icon={faBook}
+          />
+          <SectionCard
               title="الأذكار"
               desc="مجموعة منظمة من الأذكار اليومية."
               link="/azkar"
@@ -107,6 +113,20 @@ export default function HomePage() {
               link="/ai/chat"
             icon={faBrain}
             />
+          <SectionCard
+            title="الدروس"
+            desc="دروس متنوعة في مكان واحد."
+            link="/courses"
+            icon={faGraduationCap}
+          />
+          <SectionCard
+            title="الراديو"
+            desc="استمع لقارئك المفضل بجودة عالية"
+            link="/radio"
+            icon={faRadio}
+          />
+
+
           </div>
       </section>
     </main>

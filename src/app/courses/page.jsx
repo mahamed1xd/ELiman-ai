@@ -11,15 +11,28 @@ export default function courses() {
   const [catagories, setCatagories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sections, setSections] = useState([]);
-    const [courses, setCourses] = useState([]);
-    const { user } = useAuth();
+  const [courses, setCourses] = useState([]);
+  const [currentLink, setCurrentLink] = useState(null);
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    document.getElementById("showVideoModal")?.close();
+  };
   useEffect(() => {
+    const loadAll = async () => {
     setLoading(true)
-    getCatagories()
-    getSections()
-    getCourses()
+      await Promise.all([
+        getCatagories(),
+        getSections(),
+        getCourses()
+      ])
     setLoading(false)
+    }
+    loadAll()
   }, [])
+
 
   const getCourses = async () => {
     try {
@@ -63,17 +76,33 @@ export default function courses() {
     }
   }
 
+  useEffect(() => {
+    if (open && playerRef.current && currentLink) {
+      console.log(currentLink);
+    }
+  }, [open, currentLink]);
+
+
   const showVideo = (link) => {
-    document.getElementById('showVideoModal').showModal()
-    playerRef.current.src = link
+    setCurrentLink(link)
+    setOpen(true)
+    requestAnimationFrame(() => {
+      document.getElementById('showVideoModal')?.showModal()
+    })
   }
+
+
 
     return (
         <div className="min-h-[90vh] w-full">
             <h1 className="text-center text-primary text-2xl font-[ar3] font-black mb-5 mt-3 md:text-4xl">الدروس</h1>
         <div className="grid w-[95%] gap-3 m-auto">
 
-          {loading ? <Loader /> : null}
+          {loading ? (
+            <div className="w-full h-[90vh] flex items-center justify-center">
+              <Loader />
+            </div>
+          ) : null}
           {catagories && catagories.map((cat, i) => {
             return (
               <div key={i} className="collapse collapse-arrow bg-base-200 border-base-300 border">
@@ -144,20 +173,37 @@ export default function courses() {
     <button className="btn btn-ghost" onClick={()=>document.getElementById('editCoursesModal').close()}>إلغاء</button>
   </div>
 </dialog>
+
         <dialog id="showVideoModal" className="modal">
+
           <div className="modal-box w-[95%] p-0 m-auto">
             <form method="dialog" className="relative z-50">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+              <button onClick={() => {
+                handleClose()
+              }} className="btn btn-sm btn-circle btn-soft opacity-30 hover:opacity-100 duration-300 active:opacity-100 absolute left-2 top-2">✕</button>
             </form>
             <div className="w-[100%] min-h-[26vh] md:min-h-[44vh] lg:min-h-[44vh]">
-              <ReactPlayer controls={true} ref={playerRef} src='https://youtu.be/Y8f3PnOVc4A?si=tbaAC1IckGxxcaKs' width={'100%'} className="min-h-[26vh] md:min-h-[44vh] lg:min-h-[44vh]" config={{
-                youtube: {
-                  playerVars: {
-                    rel: 0
-                  }
-                }
-              }} />
+              {open && currentLink && (
+                <ReactPlayer
+                  ref={playerRef}
+                  src={currentLink}
+                  controls
+                  width="100%"
+                  className="min-h-[26vh] md:min-h-[44vh] lg:min-h-[44vh]"
+                  config={{
+                    youtube: {
+                      playerVars: {
+                        modestbranding: 1,
+                        rel: 0,
+                        fs: 1,
+                        playsinline: 1,
+                      },
+                    },
+                  }}
+                />
+              )}
+
             </div>
           </div>
         </dialog>
