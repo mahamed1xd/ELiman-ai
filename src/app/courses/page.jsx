@@ -4,49 +4,61 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/context/authContext";
 import ReactPlayer from 'react-player'
-
+import Loader from "@/components/loader";
 // Render a YouTube video player
 export default function courses() {
   const playerRef = useRef()
   const [catagories, setCatagories] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [sections, setSections] = useState([]);
     const [courses, setCourses] = useState([]);
     const { user } = useAuth();
   useEffect(() => {
+    setLoading(true)
     getCatagories()
     getSections()
     getCourses()
+    setLoading(false)
   }, [])
 
   const getCourses = async () => {
     try {
+      setLoading(true)
       const res = await fetch('/api/admin/courses')
       const data = await res.json()
             console.log(data);
 
       setCourses(data.courses)
+      setLoading(false)
     }
     catch (error) {
+      setLoading(false)
       console.error(error)
     }
   }
   const getSections = async () => {
     try {
+      setLoading(true)
       const res = await fetch('/api/admin/courses/section')
       const data = await res.json()
       setSections(data)
+      setLoading(false)
     }
     catch (error) {
+      setLoading(false)
       console.error(error)
     }
   }
   const getCatagories = async () => {
     try {
+      setLoading(true)
       const res = await fetch('/api/admin/courses/catagory')
       const data = await res.json()
       setCatagories(data)
+      setLoading(false)
     }
     catch (error) {
+      setLoading(false)
       console.error(error)
     }
   }
@@ -61,6 +73,7 @@ export default function courses() {
             <h1 className="text-center text-primary text-2xl font-[ar3] font-black mb-5 mt-3 md:text-4xl">الدروس</h1>
         <div className="grid w-[95%] gap-3 m-auto">
 
+          {loading ? <Loader /> : null}
           {catagories && catagories.map((cat, i) => {
             return (
               <div key={i} className="collapse collapse-arrow bg-base-200 border-base-300 border">
@@ -93,6 +106,7 @@ export default function courses() {
               </div> 
             )
           })}
+
         </div>{
           user.role === "admin" && (
          <div className="fab">
@@ -131,13 +145,13 @@ export default function courses() {
   </div>
 </dialog>
         <dialog id="showVideoModal" className="modal">
-          <div className="modal-box w-[80%] min-h-[50%] m-auto">
+          <div className="modal-box w-[95%] p-0 m-auto">
             <form method="dialog" className="relative z-50">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <div className="w-[95%] min-h-[50vh]">
-              <ReactPlayer controls={true} ref={playerRef} src='https://youtu.be/Y8f3PnOVc4A?si=tbaAC1IckGxxcaKs' height={'50vh'} width={'100%'} config={{
+            <div className="w-[100%] min-h-[26vh] md:min-h-[44vh] lg:min-h-[44vh]">
+              <ReactPlayer controls={true} ref={playerRef} src='https://youtu.be/Y8f3PnOVc4A?si=tbaAC1IckGxxcaKs' width={'100%'} className="min-h-[26vh] md:min-h-[44vh] lg:min-h-[44vh]" config={{
                 youtube: {
                   playerVars: {
                     rel: 0

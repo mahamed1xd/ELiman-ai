@@ -165,7 +165,7 @@ export default function NavbarComponent() {
           </div>
         </div>
 
-          <div className="navbar-end absolute left-2.5">
+          <div className="navbar-end w-auto absolute left-2.5">
           {loggedIn === null ? null : !loggedIn && !user ? (
             <Link href="/login" className="btn bg-base-300 text-base-content hover:bg-primary hover:text-primary-content duration-400">Login</Link>
           ) : (
