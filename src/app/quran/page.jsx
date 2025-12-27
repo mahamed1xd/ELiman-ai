@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import { toast } from "sonner";
 import Loader from "@/components/loader";
-import { Slice } from "lucide-react";
 
 export default function Quran() {
   const [surah, setSurah] = useState([]);
@@ -14,17 +13,9 @@ export default function Quran() {
   const [fromAyah, setFromAyah] = useState("");
   const [toAyah, setToAyah] = useState("");
   const [selectedSurah, setSelectedSurah] = useState(null);
-  const cache = useRef({});
 
   // تحميل السور مرة واحدة فقط (مع localStorage)
   useEffect(() => {
-    const cached = localStorage.getItem("surahList");
-    if (cached) {
-      setSurah(JSON.parse(cached));
-      setLoading(false);
-      return;
-    }
-
     async function getSurah() {
       try {
         const res = await fetch("https://api.alquran.cloud/v1/surah");
@@ -43,16 +34,11 @@ export default function Quran() {
 
   // تحميل آيات السورة مع كاش داخلي
   const getAyat = async (num) => {
-    if (cache.current[num]) {
-      setAyat(cache.current[num]);
-      return;
-    }
 
     setLoadingA(true);
     try {
       const res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.alafasy`);
       const json = await res.json();
-      cache.current[num] = json.data.ayahs;
       const SurahNum = json.data.number;
       setAyat(json.data.ayahs);
       try {
