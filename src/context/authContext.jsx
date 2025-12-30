@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, createContext, useContext } from "react";
 import jwt from 'jsonwebtoken';
+import localforage from "localforage"
+import storage from "@/lib/storage";
 
 // إنشاء الـ context
 const AuthContext = createContext();
@@ -31,10 +33,11 @@ export function AuthProvider({ children }) {
   }, [user]);
 
   // 🔴 دالة لتسجيل الخروج
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem('image')
+    await storage.clear()
     sessionStorage.clear()
   };
 

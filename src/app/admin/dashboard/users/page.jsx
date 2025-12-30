@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "sonner"
 import Loader from "@/components/loader"
+import storage from "@/lib/storage"
 export default function adminUsersPage() {
   const [Duser, setDuser] = useState({})
   const [Euser, setEuser] = useState({
@@ -19,24 +20,43 @@ export default function adminUsersPage() {
   const [editLoading, setEditLoading] = useState(false)
   const [users, setUsers] = useState([])
   const [loading, setloading] = useState(false)
-  const storedUsers = sessionStorage.getItem('users')
+  useEffect(() => {
+    const initUsers = async () => {
+      setloading(true);
+
+      const storedUsers = await storage.getItem('users');
+
+      if (Array.isArray(storedUsers) && storedUsers.length > 0) {
+        setUsers(storedUsers);
+        setloading(false);
+        return;
+      }
+
+      // مفيش users في storage → هات من API
+      const res = await fetch('/api/admin/users');
+      const data = await res.json();
+
+      setUsers(data.users || []);
+      await storage.setItem('users', data.users || []);
+      setloading(false);
+    };
+
+    initUsers();
+  }, []);
+
 
   useEffect(() => {
-    if (!storedUsers) {
-      const getUsers = async () => {
-        setloading(true)
-        const res = await fetch('/api/admin/users')
-        const data = await res.json()
-        console.log(data.users);
-        setUsers(data.users)
-        sessionStorage.setItem('users', JSON.stringify(data.users))
-        setloading(false)
-      }
-      getUsers()
-    } else {
-      setUsers(JSON.parse(storedUsers))
-    }
-  }, [])
+    const clearOnClose = () => {
+      storage.removeItem("users");
+    };
+
+    window.addEventListener("beforeunload", clearOnClose);
+
+    return () => {
+      window.removeEventListener("beforeunload", clearOnClose);
+    };
+  }, []);
+
 
   const showEditModel = async (user) => {
     setEuser({
@@ -71,7 +91,7 @@ export default function adminUsersPage() {
     console.log(data);
     if (data.success) {
       setUsers(users.filter((u) => u.id !== Duser.id))
-      sessionStorage.setItem('users', JSON.stringify(users.filter((u) => u.id !== Duser.id)))
+      await storage.setItem('users', users.filter((u) => u.id !== Duser.id))
       toast.success('تم حذف المستخدم بنجاح')
       document.getElementById('deleteModal').close()
       setEditLoading(false)
@@ -97,7 +117,7 @@ export default function adminUsersPage() {
     if (data.success) {
       toast.success('تم تعديل المستخدم بنجاح')
       setUsers(users.map((u) => u.id === Euser.id ? Euser : u))
-      sessionStorage.setItem('users', JSON.stringify(users.map((u) => u.id === Euser.id ? Euser : u)))
+      await storage.setItem('users', users.map((u) => u.id === Euser.id ? Euser : u))
       document.getElementById('editModal').close()
 
     }
@@ -108,6 +128,7 @@ export default function adminUsersPage() {
 
   }
   return (
+
     <div className="flex justify-center items-center">
       {(loading) ? <div className="min-h-[90vh] w-full flex justify-center items-center"><Loader /></div> : (
         <>

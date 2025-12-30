@@ -2,11 +2,27 @@
 import AdminGuard from "@/components/AdminGaurd";
 import { useEffect, useState } from "react";
 import Loader from "@/components/loader";
+import storage from "@/lib/storage";
 
 export default function AdminDashboardPage() {
   const [users, setUsers] = useState([])
   const [loading, setloading] = useState(false)
-  const storedUsers = sessionStorage.getItem('users')
+  const storedUsers = storage.getItem('users')
+
+
+  useEffect(() => {
+    const clearOnClose = () => {
+      storage.removeItem("users");
+    };
+
+    window.addEventListener("beforeunload", clearOnClose);
+
+    return () => {
+      window.removeEventListener("beforeunload", clearOnClose);
+    };
+  }, []);
+
+
 
   useEffect(() => {
     if (!storedUsers) {
@@ -16,12 +32,12 @@ export default function AdminDashboardPage() {
       const data = await res.json()
       console.log(data.users);
       setUsers(data.users)
-      sessionStorage.setItem('users', JSON.stringify(data.users))
+      await storage.setItem('users', data.users)
       setloading(false)
     }
     getUsers()
     } else {
-      setUsers(JSON.parse(storedUsers))
+      setUsers(storedUsers)
     }
   }, [])
 
